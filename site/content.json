@@ -101,8 +101,10 @@
             "id": "wksleutelhangers",
             "name": "wksleutelhangers.nl",
             "url": "https://wksleutelhangers.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/0fdc1c7a3_ChatGPTImageJun12202609_46_02AM.png",
-            "tags": ["Website Pro"],
+            "image": "img/wksleutelhangers.webp",
+            "tags": [
+                "Website Pro"
+            ],
             "description": "Gepersonaliseerde shirt-sleutelhangers van jouw favoriete land: jouw naam, jouw nummer.",
             "featured": true
         },
@@ -110,8 +112,10 @@
             "id": "onsoranje",
             "name": "OnsOranje 2026",
             "url": "https://onsoranje26.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/541e5ab89_NewProject8.jpg",
-            "tags": ["Website"],
+            "image": "img/onsoranje.webp",
+            "tags": [
+                "Website"
+            ],
             "description": "Volg Oranje tijdens het WK 2026 met wedstrijden, uitslagen, standen en live updates van het Nederlands elftal.",
             "featured": true
         },
@@ -119,8 +123,10 @@
             "id": "p2000-apeldoorn",
             "name": "P2000 Apeldoorn",
             "url": "https://p2000-apeldoorn.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/a6fcce31a_App_icon.jpg",
-            "tags": ["Website Pro"],
+            "image": "img/p2000-apeldoorn.webp",
+            "tags": [
+                "Website Pro"
+            ],
             "description": "Meldingen van brandweer, ambulance en politie in bijna real time: waar, wat en hoe urgent, in en rond Apeldoorn.",
             "featured": true
         },
@@ -128,8 +134,10 @@
             "id": "112heli",
             "name": "112 HELI",
             "url": "https://112heli.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/c7f19607c_logo-112-heli.png",
-            "tags": ["Website Pro"],
+            "image": "img/112heli.webp",
+            "tags": [
+                "Website Pro"
+            ],
             "description": "Volg live de positie van Lifeliner- en politiehelikopters in Nederland op een interactieve kaart.",
             "featured": true
         },
@@ -137,8 +145,11 @@
             "id": "worklio",
             "name": "Worklio",
             "url": "https://worklio.nl",
-            "image": "https://base44.app/api/apps/69299eb1c668e2d7ebe70e1d/files/public/69299eb1c668e2d7ebe70e1d/4ede26ed0_NewProject2.jpg",
-            "tags": ["Website Pro", "CRM"],
+            "image": "img/worklio.webp",
+            "tags": [
+                "Website Pro",
+                "CRM"
+            ],
             "description": "Een platform voor personeelsplanning, urenregistratie en verlofbeheer.",
             "featured": true
         },
@@ -146,8 +157,10 @@
             "id": "uavforecast",
             "name": "UAV Forecast",
             "url": "https://uavforecast.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/6f798b94c_ChatGPTImageDec20202508_19_25AM.png",
-            "tags": ["Website Pro"],
+            "image": "img/uavforecast.webp",
+            "tags": [
+                "Website Pro"
+            ],
             "description": "Gratis tool voor dronepiloten met gedetailleerd inzicht in wind- en weersomstandigheden, zodat je veilig kunt vliegen.",
             "featured": true
         },
@@ -155,8 +168,10 @@
             "id": "vlagdagen",
             "name": "Vlagdagen",
             "url": "https://vlagdagen.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/2c793df72_playstore.png",
-            "tags": ["Website"],
+            "image": "img/vlagdagen.webp",
+            "tags": [
+                "Website"
+            ],
             "description": "Wanneer hang je in Nederland de vlag uit, met of zonder oranje wimpel, en hoe doe je dat volgens de regels.",
             "featured": false
         },
@@ -164,8 +179,10 @@
             "id": "vlagdagen-be",
             "name": "Vlagdagen BE",
             "url": "https://vlagdagen.be",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/c8cf24dfe_app_icon1.png",
-            "tags": ["Website"],
+            "image": "img/vlagdagen-be.webp",
+            "tags": [
+                "Website"
+            ],
             "description": "Wanneer hang je in België de vlag uit, met korte uitleg over de belangrijkste vlagregels en tradities.",
             "featured": false
         },
@@ -173,8 +190,10 @@
             "id": "timetotrack",
             "name": "TimeToTrack",
             "url": "https://timetotrack.nl",
-            "image": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980d3059c29943ec25b8b23/99bf29e14_time1.jpg",
-            "tags": ["Website Pro"],
+            "image": "img/timetotrack.webp",
+            "tags": [
+                "Website Pro"
+            ],
             "description": "Registreer werktijd, kilometers en declaraties en zie wekelijks je gewerkte uren tegenover je contracturen.",
             "featured": false
         },
@@ -182,8 +201,12 @@
             "id": "korturl",
             "name": "KortURL",
             "url": "https://korturl.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/c22bde06b_icon_korturl.png",
-            "tags": ["Website Pro", "CRM", "Tool"],
+            "image": "img/korturl.webp",
+            "tags": [
+                "Website Pro",
+                "CRM",
+                "Tool"
+            ],
             "description": "Lange URLs naar korte, deelbare links met tracking.",
             "featured": false
         },
@@ -191,8 +214,11 @@
             "id": "convertcore",
             "name": "ConvertCore",
             "url": "https://convertcore.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/bb4e4c0a8_NewProject5.jpg",
-            "tags": ["Website Pro", "Tool"],
+            "image": "img/convertcore.webp",
+            "tags": [
+                "Website Pro",
+                "Tool"
+            ],
             "description": "Gratis online bestandsconverter voor PDF, afbeeldingen, video's en meer.",
             "featured": false
         },
@@ -200,8 +226,11 @@
             "id": "embedme",
             "name": "EmbedMe",
             "url": "https://embedme.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/c9751459a_embedMe.jpg",
-            "tags": ["Website", "Tool"],
+            "image": "img/embedme.webp",
+            "tags": [
+                "Website",
+                "Tool"
+            ],
             "description": "Test, bekijk en bewaar je embed-codes veilig op één plek.",
             "featured": false
         },
@@ -209,8 +238,10 @@
             "id": "aerovisuals",
             "name": "AeroVisuals",
             "url": "https://aerovisuals.nl",
-            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/0908455a7_iTunesArtwork3x.png",
-            "tags": ["Website"],
+            "image": "img/aerovisuals.webp",
+            "tags": [
+                "Website"
+            ],
             "description": "Een collectief van professionals met een passie voor alle vormen van content.",
             "featured": false
         }
@@ -222,7 +253,7 @@
             "name": "Kim van der Linden",
             "company": "opjouweigenhoutje.nl",
             "url": "https://www.opjouweigenhoutje.nl",
-            "photo": "https://base44.app/api/apps/69299eb1c668e2d7ebe70e1d/files/public/69299eb1c668e2d7ebe70e1d/3d3d5f900_kim.png"
+            "photo": "img/kim.webp"
         }
     ],
     "about": {
@@ -232,10 +263,22 @@
             "Wij doen het anders. Moderne technologie, strakke designs en vooral: websites die écht resultaat opleveren voor je bedrijf."
         ],
         "values": [
-            { "title": "Kwaliteit", "text": "Elk project krijgt onze volledige aandacht. We leveren pas op als het perfect is." },
-            { "title": "Snelheid", "text": "Binnen 2 weken live. Geen eindeloze trajecten, maar resultaat." },
-            { "title": "Betrouwbaar", "text": "Transparante communicatie en altijd bereikbaar voor vragen." },
-            { "title": "Persoonlijk", "text": "Directe lijnen, geen callcenters. Je spreekt altijd met de maker." }
+            {
+                "title": "Kwaliteit",
+                "text": "Elk project krijgt onze volledige aandacht. We leveren pas op als het perfect is."
+            },
+            {
+                "title": "Snelheid",
+                "text": "Binnen 2 weken live. Geen eindeloze trajecten, maar resultaat."
+            },
+            {
+                "title": "Betrouwbaar",
+                "text": "Transparante communicatie en altijd bereikbaar voor vragen."
+            },
+            {
+                "title": "Persoonlijk",
+                "text": "Directe lijnen, geen callcenters. Je spreekt altijd met de maker."
+            }
         ]
     },
     "faq": [

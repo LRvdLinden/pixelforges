@@ -187,7 +187,15 @@ jobs:
           FTP_PORT: ${{ secrets.FTP_PORT }}
           FTP_DIR: ${{ secrets.FTP_DIR }}
         run: |
-          HOST=$(printf '%s' "$FTP_SERVER" | tr -d '[:space:]' | sed -E 's#^[a-z]+://##; s#/.*$##')
+          HOST=$(printf '%s' "$FTP_SERVER" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#/.*$##; s#^.*@##; s#:[0-9]+$##')
+          # Diagnose zonder de waarde zelf te tonen
+          if ! getent hosts "$HOST" >/dev/null; then
+            TLD=$(printf '%s' "$HOST" | awk -F. 'NF>1{print "."$NF}')
+            LABELS=$(printf '%s' "$HOST" | awk -F. '{print NF}')
+            case "$HOST" in ftp.pixelforges.nl|pixelforges.nl|www.pixelforges.nl) HINT=" Dit is een adres op pixelforges.nl, dat nog naar Base44 wijst. Gebruik de servernaam of het IP-adres van je hosting.";; *) HINT="";; esac
+            echo "::error::De FTP-server in secret FTP_SERVER is niet te vinden in DNS (lengte ${#HOST} tekens, ${LABELS} delen, eindigt op '${TLD:-geen punt}').${HINT} Vul de servernaam uit cPanel of het IP-adres in, zonder ftp://, poort of gebruikersnaam."
+            exit 1
+          fi
           PORT=$(printf '%s' "${FTP_PORT:-21}" | tr -cd '0-9'); PORT=${PORT:-21}
           FTP_USER=$(printf '%s' "$FTP_USER" | tr -d '[:space:]')
           # Wachtwoord via omgevingsvariabele, zodat het niet in de opdrachtregel of logs staat

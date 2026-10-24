@@ -50,9 +50,12 @@ jobs:
           [ -z "$BEHEER_PASSWORD" ] && missing="$missing BEHEER_PASSWORD"
           [ -z "$BEHEER_HTPASSWD_PATH" ] && missing="$missing BEHEER_HTPASSWD_PATH"
           if [ -n "$missing" ]; then
-            echo "::error::Ontbrekende secrets:$missing. Zonder deze secrets zou beheer.html onbeveiligd online komen. Voeg ze toe onder Settings > Secrets and variables > Actions."
-            exit 1
+            echo "::warning::Ontbrekende secrets:$missing. De site gaat live ZONDER beheer.html en publish.php. Voeg ze toe onder Settings > Secrets and variables > Actions om beheer te activeren."
+            echo "beheer=false" >> "$GITHUB_OUTPUT"
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          echo "beheer=true" >> "$GITHUB_OUTPUT"
           P=$(printf '%s' "$BEHEER_HTPASSWD_PATH" | tr -d '\r\n' | sed -e 's/^[[:space:]"'"'"']*//' -e 's/[[:space:]"'"'"']*$//')
           case "$P" in
             /*) ;;
@@ -84,6 +87,7 @@ jobs:
           BEHEER_USER: ${{ secrets.BEHEER_USER }}
           BEHEER_PASSWORD: ${{ secrets.BEHEER_PASSWORD }}
           BEHEER_HTPASSWD_PATH: ${{ secrets.BEHEER_HTPASSWD_PATH }}
+          BEHEER: ${{ steps.secrets.outputs.beheer }}
         run: |
           BEHEER_HTPASSWD_PATH=$(printf '%s' "$BEHEER_HTPASSWD_PATH" | tr -d '\r\n' | sed -e 's/^[[:space:]"'"'"']*//' -e 's/[[:space:]"'"'"']*$//')
           case "$BEHEER_HTPASSWD_PATH" in */) BEHEER_HTPASSWD_PATH="${BEHEER_HTPASSWD_PATH}.htpasswd" ;; esac
@@ -91,6 +95,10 @@ jobs:
           python3 -c "import json; json.load(open('site/content.json'))" || { echo "::error::site/content.json is geen geldige JSON"; exit 1; }
           rm -rf build && mkdir build
           cp -r site/. build/
+          if [ "$BEHEER" != "true" ]; then
+            rm -f build/beheer.html build/publish.php
+            echo "::warning::beheer.html en publish.php zijn niet meegenomen (BEHEER-secrets ontbreken)."
+          fi
 
           if [ -n "$BEHEER_USER" ] && [ -n "$BEHEER_PASSWORD" ]; then
             # Wachtwoord via stdin, zodat het niet in de proceslijst verschijnt. bcrypt-hash.
@@ -209,6 +217,8 @@ jobs:
 
       - name: Controleer live site
         if: steps.secrets.outputs.deploy == 'true'
+        env:
+          BEHEER: ${{ steps.secrets.outputs.beheer }}
         run: |
           sleep 3
           code=$(curl -s -o /tmp/live.html -w '%{http_code}' "$SITE_URL/index.html?v=${GITHUB_RUN_NUMBER}")
@@ -218,7 +228,9 @@ jobs:
             exit 0
           fi
           curl -s "$SITE_URL/content.json?v=${GITHUB_RUN_NUMBER}" | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d['projects']), 'projecten live')"
-          for f in beheer.html publish.php .publish-config.php .htpasswd; do
+          FILES=".publish-config.php .htpasswd"
+          [ "$BEHEER" = "true" ] && FILES="beheer.html publish.php $FILES"
+          for f in $FILES; do
             c=$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL/$f")
             echo "$f zonder login: HTTP $c"
             case "$c" in 401|403) ;; *) echo "::error::$f is bereikbaar zonder login (HTTP $c)."; exit 1 ;; esac

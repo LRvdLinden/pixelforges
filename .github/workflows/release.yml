@@ -229,7 +229,10 @@ jobs:
           BEHEER: ${{ steps.secrets.outputs.beheer }}
         run: |
           sleep 3
-          code=$(curl -s -o /tmp/live.html -w '%{http_code}' "$SITE_URL/index.html?v=${GITHUB_RUN_NUMBER}")
+          code=$(curl -s -o /tmp/live.html -w '%{http_code}' "$SITE_URL/index.html?v=${GITHUB_RUN_NUMBER}") || {
+            echo "::warning::$SITE_URL is niet bereikbaar vanaf GitHub (DNS of verbinding). De bestanden staan wel op je server; controleer of het domein naar je hosting wijst."
+            exit 0
+          }
           echo "index.html: HTTP $code"
           if ! grep -q 'pixelforges-site' /tmp/live.html; then
             echo "::warning::$SITE_URL toont nog niet de nieuwe site. Wijst het domein (DNS) al naar je eigen hosting? Zolang het nog naar Base44 wijst, staat de nieuwe site alleen op de server klaar."

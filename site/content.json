@@ -1,0 +1,263 @@
+{
+    "_uitleg": "Alle teksten, pakketten, projecten, reviews en vragen van pixelforges.nl. Makkelijker bewerken: open /beheer.html. Afbeeldingen met een https-adres worden bij de volgende deploy automatisch naar site/img gekopieerd.",
+    "settings": {
+        "email": "info@pixelforges.nl",
+        "phone": "",
+        "city": "Apeldoorn",
+        "facebook": "https://facebook.com/PixelForgesNL",
+        "instagram": "https://instagram.com/PixelForgesNL",
+        "linkedin": "",
+        "kvk": "",
+        "termsUrl": "",
+        "cookieyesId": "",
+        "rating": "5/5",
+        "deliveryTime": "2 weken",
+        "responseTime": "24u",
+        "satisfaction": "100%"
+    },
+    "hero": {
+        "eyebrow": "Webdesign voor MKB en ZZP",
+        "title1": "Wij bouwen",
+        "title2": "jouw website.",
+        "text": "Professionele websites voor MKB en ZZP. Geen gedoe, wel resultaat. Snel live, goed vindbaar en makkelijk zelf bij te houden. Vanaf €750.",
+        "ctaPrimary": "Start je project",
+        "ctaSecondary": "Bekijk aanbod"
+    },
+    "packages": [
+        {
+            "id": "basis",
+            "name": "Website Basis",
+            "prefix": "va",
+            "price": "€750",
+            "suffix": "",
+            "note": "excl. btw",
+            "description": "Perfect voor ZZP'ers en kleine ondernemers die online zichtbaar willen zijn.",
+            "features": [
+                "Onepage site",
+                "Responsive design",
+                "Analytics",
+                "Beheersomgeving voor kleine aanpassingen"
+            ],
+            "badge": "",
+            "highlight": false
+        },
+        {
+            "id": "pro",
+            "name": "Website Pro",
+            "prefix": "va",
+            "price": "€1.450",
+            "suffix": "",
+            "note": "excl. btw",
+            "description": "Voor bedrijven die meer willen: profielen, portfolio's of uitgebreide functionaliteit.",
+            "features": [
+                "Alles van Basis",
+                "Onbeperkt pagina's",
+                "Gebruikersprofielen",
+                "Portfolio systeem",
+                "Uitgebreide beheersomgeving"
+            ],
+            "badge": "Populair",
+            "highlight": true
+        },
+        {
+            "id": "service",
+            "name": "Service & Beheer",
+            "prefix": "",
+            "price": "€69,95",
+            "suffix": "/maand",
+            "note": "excl. btw",
+            "description": "Wij zorgen dat je website altijd up-to-date, veilig en snel blijft.",
+            "features": [
+                "Maandelijkse updates",
+                "Dagelijkse backups",
+                "Uptime monitoring",
+                "Support via email",
+                "Kleine aanpassingen"
+            ],
+            "badge": "Verplicht",
+            "highlight": false
+        }
+    ],
+    "steps": [
+        {
+            "title": "Kennismaking",
+            "text": "Je vertelt wat je wilt bereiken. Binnen 24 uur heb je een vrijblijvende offerte."
+        },
+        {
+            "title": "Ontwerp",
+            "text": "We zetten je merk, teksten en beelden om in een strak ontwerp dat bij je past."
+        },
+        {
+            "title": "Bouwen",
+            "text": "Snel, responsive en SEO-geoptimaliseerd. Je kijkt tussendoor mee en geeft feedback."
+        },
+        {
+            "title": "Live",
+            "text": "Gemiddeld binnen 2 weken online. Daarna houden we je site veilig en up-to-date."
+        }
+    ],
+    "projects": [
+        {
+            "id": "wksleutelhangers",
+            "name": "wksleutelhangers.nl",
+            "url": "https://wksleutelhangers.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/0fdc1c7a3_ChatGPTImageJun12202609_46_02AM.png",
+            "tags": ["Website Pro"],
+            "description": "Gepersonaliseerde shirt-sleutelhangers van jouw favoriete land: jouw naam, jouw nummer.",
+            "featured": true
+        },
+        {
+            "id": "onsoranje",
+            "name": "OnsOranje 2026",
+            "url": "https://onsoranje26.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/541e5ab89_NewProject8.jpg",
+            "tags": ["Website"],
+            "description": "Volg Oranje tijdens het WK 2026 met wedstrijden, uitslagen, standen en live updates van het Nederlands elftal.",
+            "featured": true
+        },
+        {
+            "id": "p2000-apeldoorn",
+            "name": "P2000 Apeldoorn",
+            "url": "https://p2000-apeldoorn.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/a6fcce31a_App_icon.jpg",
+            "tags": ["Website Pro"],
+            "description": "Meldingen van brandweer, ambulance en politie in bijna real time: waar, wat en hoe urgent, in en rond Apeldoorn.",
+            "featured": true
+        },
+        {
+            "id": "112heli",
+            "name": "112 HELI",
+            "url": "https://112heli.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/c7f19607c_logo-112-heli.png",
+            "tags": ["Website Pro"],
+            "description": "Volg live de positie van Lifeliner- en politiehelikopters in Nederland op een interactieve kaart.",
+            "featured": true
+        },
+        {
+            "id": "worklio",
+            "name": "Worklio",
+            "url": "https://worklio.nl",
+            "image": "https://base44.app/api/apps/69299eb1c668e2d7ebe70e1d/files/public/69299eb1c668e2d7ebe70e1d/4ede26ed0_NewProject2.jpg",
+            "tags": ["Website Pro", "CRM"],
+            "description": "Een platform voor personeelsplanning, urenregistratie en verlofbeheer.",
+            "featured": true
+        },
+        {
+            "id": "uavforecast",
+            "name": "UAV Forecast",
+            "url": "https://uavforecast.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/6f798b94c_ChatGPTImageDec20202508_19_25AM.png",
+            "tags": ["Website Pro"],
+            "description": "Gratis tool voor dronepiloten met gedetailleerd inzicht in wind- en weersomstandigheden, zodat je veilig kunt vliegen.",
+            "featured": true
+        },
+        {
+            "id": "vlagdagen",
+            "name": "Vlagdagen",
+            "url": "https://vlagdagen.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/2c793df72_playstore.png",
+            "tags": ["Website"],
+            "description": "Wanneer hang je in Nederland de vlag uit, met of zonder oranje wimpel, en hoe doe je dat volgens de regels.",
+            "featured": false
+        },
+        {
+            "id": "vlagdagen-be",
+            "name": "Vlagdagen BE",
+            "url": "https://vlagdagen.be",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/mp/public/692c8d1222893ea741cc852e/c8cf24dfe_app_icon1.png",
+            "tags": ["Website"],
+            "description": "Wanneer hang je in België de vlag uit, met korte uitleg over de belangrijkste vlagregels en tradities.",
+            "featured": false
+        },
+        {
+            "id": "timetotrack",
+            "name": "TimeToTrack",
+            "url": "https://timetotrack.nl",
+            "image": "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6980d3059c29943ec25b8b23/99bf29e14_time1.jpg",
+            "tags": ["Website Pro"],
+            "description": "Registreer werktijd, kilometers en declaraties en zie wekelijks je gewerkte uren tegenover je contracturen.",
+            "featured": false
+        },
+        {
+            "id": "korturl",
+            "name": "KortURL",
+            "url": "https://korturl.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/c22bde06b_icon_korturl.png",
+            "tags": ["Website Pro", "CRM", "Tool"],
+            "description": "Lange URLs naar korte, deelbare links met tracking.",
+            "featured": false
+        },
+        {
+            "id": "convertcore",
+            "name": "ConvertCore",
+            "url": "https://convertcore.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/bb4e4c0a8_NewProject5.jpg",
+            "tags": ["Website Pro", "Tool"],
+            "description": "Gratis online bestandsconverter voor PDF, afbeeldingen, video's en meer.",
+            "featured": false
+        },
+        {
+            "id": "embedme",
+            "name": "EmbedMe",
+            "url": "https://embedme.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/c9751459a_embedMe.jpg",
+            "tags": ["Website", "Tool"],
+            "description": "Test, bekijk en bewaar je embed-codes veilig op één plek.",
+            "featured": false
+        },
+        {
+            "id": "aerovisuals",
+            "name": "AeroVisuals",
+            "url": "https://aerovisuals.nl",
+            "image": "https://base44.app/api/apps/692c8d1222893ea741cc852e/files/public/692c8d1222893ea741cc852e/0908455a7_iTunesArtwork3x.png",
+            "tags": ["Website"],
+            "description": "Een collectief van professionals met een passie voor alle vormen van content.",
+            "featured": false
+        }
+    ],
+    "reviews": [
+        {
+            "id": "kim",
+            "quote": "Vind het fantastisch! M’n eigen site, wie had dat ooit verwacht…",
+            "name": "Kim van der Linden",
+            "company": "opjouweigenhoutje.nl",
+            "url": "https://www.opjouweigenhoutje.nl",
+            "photo": "https://base44.app/api/apps/69299eb1c668e2d7ebe70e1d/files/public/69299eb1c668e2d7ebe70e1d/3d3d5f900_kim.png"
+        }
+    ],
+    "about": {
+        "title": "Wij maken websites die werken.",
+        "paragraphs": [
+            "PixelForges is ontstaan uit frustratie. Frustratie over webdesignbureaus die te duur zijn, te traag leveren, of websites bouwen die niet werken.",
+            "Wij doen het anders. Moderne technologie, strakke designs en vooral: websites die écht resultaat opleveren voor je bedrijf."
+        ],
+        "values": [
+            { "title": "Kwaliteit", "text": "Elk project krijgt onze volledige aandacht. We leveren pas op als het perfect is." },
+            { "title": "Snelheid", "text": "Binnen 2 weken live. Geen eindeloze trajecten, maar resultaat." },
+            { "title": "Betrouwbaar", "text": "Transparante communicatie en altijd bereikbaar voor vragen." },
+            { "title": "Persoonlijk", "text": "Directe lijnen, geen callcenters. Je spreekt altijd met de maker." }
+        ]
+    },
+    "faq": [
+        {
+            "q": "Wat kost een website bij PixelForges?",
+            "a": "Een Website Basis begint bij €750 en een Website Pro bij €1.450, beide excl. btw. Daarnaast is Service & Beheer verplicht voor €69,95 per maand excl. btw. Je krijgt altijd eerst een vrijblijvende offerte op maat."
+        },
+        {
+            "q": "Hoe snel staat mijn website online?",
+            "a": "Gemiddeld binnen 2 weken, vanaf het moment dat we je teksten en beelden hebben."
+        },
+        {
+            "q": "Kan ik zelf dingen aanpassen?",
+            "a": "Ja. Elke website krijgt een beheersomgeving. Bij Basis voor kleine aanpassingen, bij Pro een uitgebreide omgeving waarmee je zelf pagina's, portfolio en profielen bijhoudt."
+        },
+        {
+            "q": "Waarom is Service & Beheer verplicht?",
+            "a": "Een website is nooit af. Met maandelijkse updates, dagelijkse backups en uptime monitoring blijft je site veilig en snel, en kun je voor support en kleine aanpassingen altijd bij ons terecht."
+        },
+        {
+            "q": "Voor wie is PixelForges bedoeld?",
+            "a": "Voor ZZP'ers en het MKB die een professionele website willen zonder bureauprijzen en lange trajecten."
+        }
+    ]
+}

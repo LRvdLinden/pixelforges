@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Beheer · PixelForges</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--bg-2:#0d0d14;--surface:#12121b;--surface-2:#1a1a24;--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--text:#f5f5f7;--muted:#9ca3af;--dim:#6b7280;--lime:#d0fb65;--lime-soft:rgba(208,251,101,.08);--lime-line:rgba(208,251,101,.28);--red:#f87171;--amber:#fbbf24;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:400 15px/1.5 "Inter",ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--lime)}
+.top{position:sticky;top:0;z-index:20;background:rgba(10,10,15,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1280px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.03em;text-decoration:none;color:var(--text)}
+.logo b{color:var(--lime)}
+.logo small{font:500 12px var(--mono);color:var(--dim);margin-left:8px}
+.state{font:500 12px var(--mono);color:var(--dim);display:flex;align-items:center;gap:8px;margin-left:auto}
+.state::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lime)}
+.state.dirty{color:var(--amber)}.state.dirty::before{background:var(--amber)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--line-2);background:rgba(255,255,255,.04);cursor:pointer;font-weight:500;font-size:14px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);white-space:nowrap}
+.btn:hover{background:rgba(255,255,255,.08)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.lime{background:var(--lime);color:#0a0a0f;border-color:var(--lime);font-weight:600}
+.btn.danger{color:var(--red);border-color:rgba(248,113,113,.3)}
+.btn.sm{height:32px;padding:0 10px;font-size:13px}
+.tabs{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs button{border:0;background:none;padding:12px 14px;color:var(--muted);cursor:pointer;font-weight:500;border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button.on{color:var(--text);border-color:var(--lime)}
+.tabs button em{font:11px var(--mono);font-style:normal;color:var(--dim);margin-left:4px}
+main{max-width:1280px;margin:0 auto;padding:24px 20px 120px}
+.notice{padding:12px 16px;border-radius:12px;margin-bottom:18px;font-size:14px;border:1px solid var(--line-2);background:var(--surface);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.notice.warn{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.06)}
+.result{padding:14px 16px;border-radius:12px;margin-bottom:18px;font-size:14px}
+.result.ok{background:var(--lime-soft);border:1px solid var(--lime-line)}
+.result.err{background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.3)}
+.result.warn{background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.35)}
+.cols{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.list{border:1px solid var(--line);border-radius:14px;background:var(--bg-2);overflow:hidden;position:sticky;top:130px}
+@media (max-width:860px){.list{position:static}}
+.list-head{display:flex;justify-content:space-between;align-items:center;padding:12px 12px 12px 16px;border-bottom:1px solid var(--line)}
+.list-head b{font-size:14px}
+.items{max-height:65vh;overflow:auto}
+.item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);cursor:pointer;width:100%;text-align:left;background:none;border-left:0;border-right:0;border-top:0}
+.item:last-child{border-bottom:0}
+.item:hover{background:rgba(255,255,255,.03)}
+.item.on{background:var(--lime-soft);box-shadow:inset 3px 0 0 var(--lime)}
+.item img,.item .ph{width:36px;height:36px;border-radius:9px;object-fit:cover;background:var(--surface-2);flex:none}
+.item .t{flex:1;min-width:0}
+.item .t b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .t small{display:block;color:var(--dim);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .star{color:var(--lime);font-size:12px}
+.card{border:1px solid var(--line);border-radius:14px;background:var(--bg-2);padding:22px}
+.card h2{margin:0 0 4px;font-size:20px;letter-spacing:-.02em}
+.card .sub{color:var(--dim);font-size:13px;margin:0 0 20px}
+.card + .card{margin-top:16px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:600px){.fields{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:6px}
+.f.full{grid-column:1/-1}
+.f label{font-size:13px;font-weight:500;color:var(--muted)}
+.f label small{color:var(--dim);font-weight:400}
+.f input,.f textarea,.f select{background:rgba(255,255,255,.03);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px;outline:none;width:100%}
+.f input:focus,.f textarea:focus{border-color:var(--lime);box-shadow:0 0 0 3px rgba(208,251,101,.12)}
+.f textarea{min-height:90px;resize:vertical}
+.f .err{color:var(--red);font-size:12px}
+.toggle{display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 0}
+.toggle input{appearance:none;width:40px;height:24px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line-2);position:relative;cursor:pointer;transition:background .2s;flex:none}
+.toggle input::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .2s}
+.toggle input:checked{background:var(--lime);border-color:var(--lime)}
+.toggle input:checked::after{transform:translateX(16px);background:#0a0a0f}
+.img-field{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.img-field .prev{width:120px;height:84px;border-radius:10px;background:var(--surface-2) center/contain no-repeat;border:1px solid var(--line-2);flex:none}
+.img-field .prev.round{width:72px;height:72px;border-radius:50%;background-size:cover}
+.img-field .side{display:flex;flex-direction:column;gap:8px;flex:1;min-width:200px}
+.img-field input[type=file]{display:none}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.bar .sp{flex:1}
+.empty{color:var(--dim);text-align:center;padding:40px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface-2);border:1px solid var(--line-2);padding:10px 16px;border-radius:10px;font-size:14px;z-index:100;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.pub-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pub-row input{flex:1;min-width:220px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);border-radius:10px;padding:0 12px;height:38px;outline:none}
+.help{color:var(--dim);font-size:13px;line-height:1.6}
+.help code{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="top-in">
+    <a class="logo" href="./" target="_blank">Pixel<b>Forges</b><small>beheer</small></a>
+    <span class="state" id="state">Laden…</span>
+    <div class="actions">
+      <a class="btn" href="./" target="_blank" title="Open de live site">Bekijk site ↗</a>
+      <button class="btn" id="btnDownload" title="Download content.json als back-up">Download JSON</button>
+      <button class="btn" id="btnReset" title="Concept weggooien en server-versie laden">Herstel</button>
+      <button class="btn lime" id="btnPublish" disabled>Publiceren</button>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs"></nav>
+</div>
+<main>
+  <div id="notice"></div>
+  <div id="result"></div>
+  <div id="view"></div>
+</main>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KEY = "pf-beheer-draft", PKEY = "pf-beheer-pending";
+const slug = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "item";
+
+/* Velden: [sleutel, label, type, extra]. type: text | textarea | bool | lines | tags | image | url | paras */
+const SCHEMA = {
+  algemeen: { label: "Algemeen", single: true, groups: [
+    { title: "Contact & bedrijf", path: "settings", fields: [
+      ["email", "E-mailadres", "text", { hint: "Contactformulier wordt naar dit adres gestuurd" }],
+      ["phone", "Telefoon", "text", { hint: "Leeg = niet tonen" }],
+      ["city", "Plaats", "text"],
+      ["kvk", "KvK-nummer", "text", { hint: "Leeg = niet tonen" }],
+      ["facebook", "Facebook", "url"], ["instagram", "Instagram", "url"], ["linkedin", "LinkedIn", "url"],
+      ["termsUrl", "Algemene voorwaarden (link)", "url", { hint: "Bijv. een PDF. Leeg = niet tonen" }]
+    ]},
+    { title: "Cijfers", path: "settings", fields: [
+      ["rating", "Beoordeling", "text"], ["satisfaction", "Tevreden klanten", "text"],
+      ["deliveryTime", "Gemiddelde levertijd", "text"], ["responseTime", "Responstijd", "text"]
+    ], sub: "Het aantal projecten wordt automatisch geteld uit je portfolio." },
+    { title: "Hero (bovenaan de site)", path: "hero", fields: [
+      ["eyebrow", "Label boven de kop", "text", { full: true }],
+      ["title1", "Kop regel 1 (wit)", "text"], ["title2", "Kop regel 2 (lime)", "text"],
+      ["text", "Introtekst", "textarea", { full: true }],
+      ["ctaPrimary", "Knop 1", "text"], ["ctaSecondary", "Knop 2", "text"]
+    ]},
+    { title: "Over ons", path: "about", fields: [
+      ["title", "Kop", "text", { full: true }],
+      ["paragraphs", "Tekst", "paras", { full: true, hint: "Witregel = nieuwe alinea" }]
+    ]},
+    { title: "Cookies", path: "settings", fields: [
+      ["cookieyesId", "CookieYes-ID", "text", { full: true, hint: "Alleen het ID uit je CookieYes-script (…/client_data/<b>ID</b>/script.js). Leeg = geen banner." }]
+    ]}
+  ]},
+  packages: { label: "Pakketten", path: "packages", title: x => x.name, subtitle: x => [x.prefix, x.price, x.suffix].filter(Boolean).join(" "),
+    fields: [["name","Naam","text"],["badge","Label","text",{hint:"Bijv. Populair of Verplicht"}],["prefix","Voor de prijs","text",{hint:"Bijv. va"}],["price","Prijs","text"],["suffix","Na de prijs","text",{hint:"Bijv. /maand"}],["note","Kleine tekst","text",{hint:"Bijv. excl. btw"}],["highlight","Uitlichten (lime rand en knop)","bool",{full:true}],["description","Omschrijving","textarea",{full:true}],["features","Wat zit erin","lines",{full:true,hint:"Eén per regel"}]],
+    create: () => ({ id: "", name: "Nieuw pakket", prefix: "va", price: "€", suffix: "", note: "excl. btw", description: "", features: [], badge: "", highlight: false }) },
+  steps: { label: "Werkwijze", path: "steps", title: x => x.title, subtitle: x => x.text,
+    fields: [["title","Titel","text",{full:true}],["text","Tekst","textarea",{full:true}]],
+    create: () => ({ title: "Nieuwe stap", text: "" }) },
+  projects: { label: "Portfolio", path: "projects", title: x => x.name, subtitle: x => (x.tags || []).join(" · "), image: "image", star: "featured",
+    fields: [["name","Naam","text"],["url","Website","url"],["tags","Labels","tags",{hint:"Komma's ertussen, bijv. Website Pro, CRM. Labels worden filters op de site."}],["featured","Uitgelicht (eerst getoond)","bool"],["description","Omschrijving","textarea",{full:true}],["image","Afbeelding","image",{full:true,max:1200}]],
+    create: () => ({ id: "", name: "Nieuw project", url: "https://", image: "", tags: ["Website"], description: "", featured: true }) },
+  reviews: { label: "Reviews", path: "reviews", title: x => x.name, subtitle: x => x.company, image: "photo", round: true,
+    fields: [["name","Naam","text"],["company","Bedrijf","text"],["url","Website","url",{full:true}],["quote","Review","textarea",{full:true}],["photo","Foto","image",{full:true,max:320,round:true}]],
+    create: () => ({ id: "", quote: "", name: "Nieuwe review", company: "", url: "", photo: "" }) },
+  values: { label: "Waarden", path: "about.values", title: x => x.title, subtitle: x => x.text,
+    fields: [["title","Titel","text",{full:true}],["text","Tekst","textarea",{full:true}]],
+    create: () => ({ title: "Nieuw", text: "" }) },
+  faq: { label: "Vragen", path: "faq", title: x => x.q, subtitle: x => x.a,
+    fields: [["q","Vraag","text",{full:true}],["a","Antwoord","textarea",{full:true}]],
+    create: () => ({ q: "Nieuwe vraag?", a: "" }) }
+};
+const NEEDS_ID = ["packages", "projects", "reviews"];
+
+let DATA = null, ORIGINAL = "", PENDING = {}, tab = "algemeen", sel = {}, publishing = false;
+const getPath = (o, p) => p.split(".").reduce((x, k) => x[k] ??= (k === "values" ? [] : {}), o);
+const getArr = key => { const parts = SCHEMA[key].path.split("."), last = parts.pop(); const parent = parts.length ? getPath(DATA, parts.join(".")) : DATA; return parent[last] ??= []; };
+const json = () => JSON.stringify(DATA, null, 2) + "\n";
+const dirty = () => json() !== ORIGINAL || Object.keys(PENDING).length > 0;
+const src = p => (p && PENDING[p.split("?")[0]]) ? PENDING[p.split("?")[0]].url : p;
+
+function toast(m) { const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 2200); }
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify({ base: ORIGINAL, data: DATA })); localStorage.setItem(PKEY, JSON.stringify(PENDING)); }
+  catch (e) { toast("Concept te groot om lokaal te bewaren; publiceer binnenkort."); }
+  updateState();
+}
+function updateState() {
+  const d = dirty(), st = $("#state");
+  st.textContent = publishing ? "Publiceren…" : d ? "Niet-gepubliceerde wijzigingen" : "Alles gepubliceerd";
+  st.className = "state" + (d && !publishing ? " dirty" : "");
+  $("#btnPublish").disabled = publishing || !d;
+}
+addEventListener("beforeunload", e => { if (dirty() && !publishing) { e.preventDefault(); e.returnValue = ""; } });
+
+/* ---------- Tabs ---------- */
+function renderTabs() {
+  $("#tabs").innerHTML = Object.entries(SCHEMA).map(([k, s]) => `<button data-tab="${k}" class="${k === tab ? "on" : ""}">${s.label}${s.single ? "" : `<em>${getArr(k).length}</em>`}</button>`).join("");
+  $$("#tabs button").forEach(b => b.onclick = () => { tab = b.dataset.tab; render(); });
+}
+
+/* ---------- Veld-HTML ---------- */
+function fieldHtml(path, [key, label, type, o = {}], obj) {
+  const id = `f_${path}_${key}`.replace(/[^a-z0-9_]/gi, "_"), v = obj[key];
+  const full = o.full || type === "textarea" || type === "lines" || type === "paras" ? " full" : "";
+  const hint = o.hint ? ` <small>· ${o.hint}</small>` : "";
+  const da = `data-key="${key}" data-type="${type}"`;
+  if (type === "bool") return `<div class="f${full}"><label class="toggle"><input type="checkbox" id="${id}" ${da} ${v ? "checked" : ""}> ${esc(label)}</label></div>`;
+  if (type === "textarea") return `<div class="f${full}"><label for="${id}">${esc(label)}${hint}</label><textarea id="${id}" ${da}>${esc(v)}</textarea></div>`;
+  if (type === "lines") return `<div class="f${full}"><label for="${id}">${esc(label)}${hint}</label><textarea id="${id}" ${da}>${esc((v || []).join("\n"))}</textarea></div>`;
+  if (type === "paras") return `<div class="f${full}"><label for="${id}">${esc(label)}${hint}</label><textarea id="${id}" ${da} style="min-height:160px">${esc((v || []).join("\n\n"))}</textarea></div>`;
+  if (type === "tags") return `<div class="f${full}"><label for="${id}">${esc(label)}${hint}</label><input id="${id}" ${da} value="${esc((v || []).join(", "))}"></div>`;
+  if (type === "image") return `<div class="f full"><label>${esc(label)}${hint}</label><div class="img-field"><div class="prev${o.round ? " round" : ""}" style="background-image:url('${esc(src(v))}')"></div><div class="side"><input ${da} id="${id}" value="${esc(v)}" placeholder="img/naam.webp of https://…"><div style="display:flex;gap:8px;flex-wrap:wrap"><label class="btn sm" style="cursor:pointer">Upload afbeelding<input type="file" accept="image/*" data-upload="${key}" data-max="${o.max || 1200}"></label>${v ? `<button class="btn sm" data-clear="${key}">Verwijder</button>` : ""}</div><span class="help">Wordt automatisch verkleind en als WebP opgeslagen. Een https-link wordt bij de volgende deploy naar de eigen server gekopieerd.</span></div></div></div>`;
+  return `<div class="f${full}"><label for="${id}">${esc(label)}${hint}</label><input id="${id}" ${da} value="${esc(v)}" ${type === "url" ? 'type="url" placeholder="https://"' : ""}></div>`;
+}
+function readField(el) {
+  const t = el.dataset.type;
+  if (t === "bool") return el.checked;
+  if (t === "lines") return el.value.split("\n").map(s => s.trim()).filter(Boolean);
+  if (t === "paras") return el.value.split(/\n\s*\n/).map(s => s.replace(/\s*\n\s*/g, " ").trim()).filter(Boolean);
+  if (t === "tags") return el.value.split(",").map(s => s.trim()).filter(Boolean);
+  return el.value.trim();
+}
+function bindFields(root, obj, after) {
+  $$("[data-key]", root).forEach(el => {
+    const ev = el.dataset.type === "bool" ? "change" : "input";
+    el.addEventListener(ev, () => { obj[el.dataset.key] = readField(el); if (el.dataset.type === "image") $(".prev", el.closest(".img-field")).style.backgroundImage = `url('${src(el.value)}')`; save(); after && after(el.dataset.key); });
+  });
+  $$("[data-upload]", root).forEach(inp => inp.addEventListener("change", async () => {
+    const file = inp.files[0]; if (!file) return;
+    try {
+      const { b64, url } = await resize(file, +inp.dataset.max);
+      const base = slug(obj.id || obj.name || "afbeelding");
+      const path = `img/${base}-${Date.now().toString(36)}.webp`;
+      const old = obj[inp.dataset.upload]; if (old && PENDING[old]) delete PENDING[old];
+      PENDING[path] = { data: b64, url };
+      obj[inp.dataset.upload] = path; save(); render(); toast("Afbeelding klaargezet. Vergeet niet te publiceren.");
+    } catch (e) { toast("Kon afbeelding niet lezen: " + e.message); }
+  }));
+  $$("[data-clear]", root).forEach(b => b.onclick = () => { const k = b.dataset.clear; if (PENDING[obj[k]]) delete PENDING[obj[k]]; obj[k] = ""; save(); render(); });
+}
+async function resize(file, max) {
+  const bmp = await createImageBitmap(file);
+  const s = Math.min(1, max / Math.max(bmp.width, bmp.height));
+  const c = document.createElement("canvas"); c.width = Math.round(bmp.width * s); c.height = Math.round(bmp.height * s);
+  c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+  let q = .85, url = c.toDataURL("image/webp", q);
+  while (url.length > 1300000 && q > .4) { q -= .1; url = c.toDataURL("image/webp", q); }
+  if (!url.startsWith("data:image/webp")) throw new Error("WebP wordt niet ondersteund in deze browser");
+  return { url, b64: url.split(",")[1] };
+}
+
+/* ---------- Weergave ---------- */
+function render() {
+  renderTabs();
+  const s = SCHEMA[tab], v = $("#view");
+  if (s.single) {
+    v.innerHTML = s.groups.map((g, i) => `<div class="card" data-g="${i}"><h2>${esc(g.title)}</h2>${g.sub ? `<p class="sub">${esc(g.sub)}</p>` : '<p class="sub"></p>'}<div class="fields">${g.fields.map(f => fieldHtml(g.path, f, getPath(DATA, g.path))).join("")}</div></div>`).join("");
+    s.groups.forEach((g, i) => bindFields($(`[data-g="${i}"]`, v), getPath(DATA, g.path)));
+    return;
+  }
+  const arr = getArr(tab);
+  if (sel[tab] == null || sel[tab] >= arr.length) sel[tab] = 0;
+  const cur = arr[sel[tab]];
+  v.innerHTML = `<div class="cols">
+    <div class="list"><div class="list-head"><b>${esc(s.label)} · ${arr.length}</b><button class="btn sm lime" id="add">+ Nieuw</button></div>
+      <div class="items">${arr.map((x, i) => `<button class="item${i === sel[tab] ? " on" : ""}" data-i="${i}">${s.image ? (x[s.image] ? `<img src="${esc(src(x[s.image]))}" alt="" style="${s.round ? "border-radius:50%" : ""}">` : `<span class="ph"></span>`) : `<span class="ph" style="display:grid;place-items:center;font:12px var(--mono);color:var(--dim)">${i + 1}</span>`}<span class="t"><b>${esc(s.title(x) || "(zonder naam)")}</b><small>${esc(s.subtitle(x) || "")}</small></span>${s.star && x[s.star] ? '<span class="star">★</span>' : ""}</button>`).join("") || '<div class="empty">Nog niets toegevoegd</div>'}</div>
+    </div>
+    <div>${cur ? `<div class="card" id="ed"><h2>${esc(s.title(cur) || "(zonder naam)")}</h2><p class="sub">${NEEDS_ID.includes(tab) ? `ID: <code style="font-family:var(--mono)">${esc(cur.id)}</code>` : `Positie ${sel[tab] + 1} van ${arr.length}`}</p>
+      <div class="fields">${s.fields.map(f => fieldHtml(tab, f, cur)).join("")}</div>
+      <div class="bar"><button class="btn sm" id="up" ${sel[tab] === 0 ? "disabled" : ""}>↑ Omhoog</button><button class="btn sm" id="down" ${sel[tab] === arr.length - 1 ? "disabled" : ""}>↓ Omlaag</button><button class="btn sm" id="dup">Dupliceren</button><span class="sp"></span><button class="btn sm danger" id="del">Verwijderen</button></div>
+    </div>` : `<div class="card empty">Kies links een item of voeg er een toe.</div>`}</div>
+  </div>`;
+  $$(".item", v).forEach(b => b.onclick = () => { sel[tab] = +b.dataset.i; render(); });
+  $("#add", v).onclick = () => { const n = s.create(); if (NEEDS_ID.includes(tab)) n.id = uniqueId(arr, n.name); arr.push(n); sel[tab] = arr.length - 1; save(); render(); $("#ed input")?.focus(); };
+  if (!cur) return;
+  const ed = $("#ed", v);
+  bindFields(ed, cur, key => {
+    if (key === s.fields[0][0]) { const b = $(`.item[data-i="${sel[tab]}"] b`, v); if (b) b.textContent = s.title(cur) || "(zonder naam)"; $("h2", ed).textContent = s.title(cur) || "(zonder naam)"; }
+  });
+  const move = d => { const i = sel[tab], j = i + d; [arr[i], arr[j]] = [arr[j], arr[i]]; sel[tab] = j; save(); render(); };
+  $("#up", ed).onclick = () => move(-1); $("#down", ed).onclick = () => move(1);
+  $("#dup", ed).onclick = () => { const c = JSON.parse(JSON.stringify(cur)); if (NEEDS_ID.includes(tab)) c.id = uniqueId(arr, (cur.name || cur.id) + "-kopie"); arr.splice(sel[tab] + 1, 0, c); sel[tab]++; save(); render(); };
+  $("#del", ed).onclick = () => { if (!confirm(`"${s.title(cur) || "dit item"}" verwijderen?`)) return; for (const k of ["image", "photo"]) if (cur[k] && PENDING[cur[k]]) delete PENDING[cur[k]]; arr.splice(sel[tab], 1); sel[tab] = Math.max(0, sel[tab] - 1); save(); render(); };
+}
+function uniqueId(arr, name) { const b = slug(name); let id = b, n = 2; while (arr.some(x => x.id === id)) id = `${b}-${n++}`; return id; }
+
+/* ---------- Publiceren ---------- */
+function validate() {
+  const errs = [];
+  for (const k of NEEDS_ID) { const seen = new Set(); getArr(k).forEach((x, i) => { if (!x.id) x.id = uniqueId(getArr(k), x.name); if (seen.has(x.id)) x.id = uniqueId(getArr(k), x.id); seen.add(x.id); if (!x.name) errs.push(`${SCHEMA[k].label} ${i + 1} heeft geen naam.`); }); }
+  if (DATA.settings?.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(DATA.settings.email)) errs.push("Het e-mailadres onder Algemeen klopt niet.");
+  return errs;
+}
+function showResult(kind, html) { $("#result").innerHTML = `<div class="result ${kind}">${html}</div>`; scrollTo({ top: 0, behavior: "smooth" }); }
+async function publish() {
+  if (publishing || !dirty()) return;
+  const errs = validate(); if (errs.length) { showResult("err", errs.map(esc).join("<br>")); return; }
+  const message = prompt("Korte omschrijving van de wijziging (komt in GitHub):", "Bijgewerkt via beheer");
+  if (message === null) return;
+  publishing = true; updateState(); $("#result").innerHTML = "";
+  try {
+    const used = new Set(JSON.stringify(DATA).match(/img\/[a-z0-9-]+\.webp/g) || []);
+    const files = Object.entries(PENDING).filter(([p]) => used.has(p)).map(([path, f]) => ({ path, data: f.data }));
+    const r = await fetch("publish.php", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json", "X-PF-Beheer": "1" }, body: JSON.stringify({ data: DATA, files, message }) });
+    const res = await r.json().catch(() => ({}));
+    if (!r.ok || !res.ok) throw new Error(res.error || ("De server gaf HTTP " + r.status + "."));
+    ORIGINAL = json(); PENDING = {}; save();
+    if (res.github) showResult("ok", `Live gezet${res.commit ? ` en opgeslagen in GitHub (commit <code>${esc(res.commit)}</code>)` : ""}. ${res.actions ? `<a href="${esc(res.actions)}" target="_blank">Bekijk de deploy ↗</a>` : ""}`);
+    else showResult("warn", "Live gezet. " + esc(res.warning || ""));
+  } catch (e) { showResult("err", "Publiceren mislukt: " + esc(e.message) + "<br>Je wijzigingen staan nog als concept in deze browser."); }
+  finally { publishing = false; updateState(); render(); }
+}
+$("#btnPublish").onclick = publish;
+$("#btnDownload").onclick = () => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([json()], { type: "application/json" })); a.download = "content.json"; a.click(); };
+$("#btnReset").onclick = () => { if (!dirty() || confirm("Alle niet-gepubliceerde wijzigingen weggooien?")) { DATA = JSON.parse(ORIGINAL); PENDING = {}; save(); $("#notice").innerHTML = ""; render(); toast("Server-versie geladen"); } };
+
+/* ---------- Laden ---------- */
+fetch("content.json", { cache: "no-store" }).then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); }).then(server => {
+  ORIGINAL = JSON.stringify(server, null, 2) + "\n";
+  DATA = server;
+  let draft = null; try { draft = JSON.parse(localStorage.getItem(KEY) || "null"); PENDING = JSON.parse(localStorage.getItem(PKEY) || "{}"); } catch { }
+  if (draft && draft.data) {
+    const draftJson = JSON.stringify(draft.data, null, 2) + "\n";
+    if (draft.base === ORIGINAL && draftJson !== ORIGINAL) { DATA = draft.data; toast("Je concept is teruggezet"); }
+    else if (draft.base !== ORIGINAL && draftJson !== draft.base) {
+      PENDING = {};
+      $("#notice").innerHTML = `<div class="notice warn"><span>De site is intussen ergens anders bijgewerkt. Je eerdere concept staat apart.</span><button class="btn sm" id="useDraft">Toch mijn concept gebruiken</button></div>`;
+      $("#useDraft").onclick = () => { DATA = draft.data; $("#notice").innerHTML = ""; save(); render(); };
+    } else PENDING = draft.base === ORIGINAL ? PENDING : {};
+  }
+  render(); updateState();
+}).catch(e => { $("#view").innerHTML = `<div class="card">content.json kon niet geladen worden (${esc(e.message)}).</div>`; });
+})();
+</script>
+</body>
+</html>

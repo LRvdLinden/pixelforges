@@ -1,0 +1,255 @@
+name: Release site
+
+# Elke wijziging in site/ (of handmatig starten):
+# 1. kopieert externe afbeeldingen (https-links in content.json) naar site/img,
+# 2. bouwt de site met .htaccess en .htpasswd voor beheer.html,
+# 3. zet hem via FTP direct live op pixelforges.nl,
+# 4. maakt een zip-release (zonder .htpasswd en token, want releases zijn publiek).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - ".github/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  SITE_URL: https://pixelforges.nl
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Controleer secrets
+        id: secrets
+        env:
+          BEHEER_USER: ${{ secrets.BEHEER_USER }}
+          BEHEER_PASSWORD: ${{ secrets.BEHEER_PASSWORD }}
+          BEHEER_HTPASSWD_PATH: ${{ secrets.BEHEER_HTPASSWD_PATH }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if [ -z "$FTP_SERVER" ] || [ -z "$FTP_USER" ] || [ -z "$FTP_PASSWORD" ]; then
+            echo "::warning::FTP-secrets ontbreken (FTP_SERVER, FTP_USER, FTP_PASSWORD). Er wordt alleen een zip-release gemaakt, niets live gezet."
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          missing=""
+          [ -z "$BEHEER_USER" ] && missing="$missing BEHEER_USER"
+          [ -z "$BEHEER_PASSWORD" ] && missing="$missing BEHEER_PASSWORD"
+          [ -z "$BEHEER_HTPASSWD_PATH" ] && missing="$missing BEHEER_HTPASSWD_PATH"
+          if [ -n "$missing" ]; then
+            echo "::error::Ontbrekende secrets:$missing. Zonder deze secrets zou beheer.html onbeveiligd online komen. Voeg ze toe onder Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+          P=$(printf '%s' "$BEHEER_HTPASSWD_PATH" | tr -d '\r\n' | sed -e 's/^[[:space:]"'"'"']*//' -e 's/[[:space:]"'"'"']*$//')
+          case "$P" in
+            /*) ;;
+            *) echo "::error::BEHEER_HTPASSWD_PATH moet een volledig pad zijn dat met / begint, bijv. /home/GEBRUIKER/public_html/pixelforges.nl/.htpasswd"; exit 1 ;;
+          esac
+          echo "deploy=true" >> "$GITHUB_OUTPUT"
+
+      - name: Externe afbeeldingen lokaal maken
+        id: images
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check pillow
+          python3 .github/scripts/localize_images.py
+
+      - name: Sla lokale afbeeldingen op in de repo
+        if: steps.images.outputs.changed != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add site/img site/content.json
+          git commit -m "Afbeeldingen lokaal opgeslagen" || exit 0
+          git push origin HEAD:main || echo "::warning::Kon afbeeldingen niet terugzetten in de repo (wordt bij de volgende run opnieuw geprobeerd)."
+
+      - name: Installeer hulpmiddelen
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq apache2-utils zip lftp
+
+      - name: Bouw site
+        env:
+          PUBLISH_GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          BEHEER_USER: ${{ secrets.BEHEER_USER }}
+          BEHEER_PASSWORD: ${{ secrets.BEHEER_PASSWORD }}
+          BEHEER_HTPASSWD_PATH: ${{ secrets.BEHEER_HTPASSWD_PATH }}
+        run: |
+          BEHEER_HTPASSWD_PATH=$(printf '%s' "$BEHEER_HTPASSWD_PATH" | tr -d '\r\n' | sed -e 's/^[[:space:]"'"'"']*//' -e 's/[[:space:]"'"'"']*$//')
+          case "$BEHEER_HTPASSWD_PATH" in */) BEHEER_HTPASSWD_PATH="${BEHEER_HTPASSWD_PATH}.htpasswd" ;; esac
+          [ -z "$BEHEER_HTPASSWD_PATH" ] && BEHEER_HTPASSWD_PATH="/pad/naar/.htpasswd"
+          python3 -c "import json; json.load(open('site/content.json'))" || { echo "::error::site/content.json is geen geldige JSON"; exit 1; }
+          rm -rf build && mkdir build
+          cp -r site/. build/
+
+          if [ -n "$BEHEER_USER" ] && [ -n "$BEHEER_PASSWORD" ]; then
+            # Wachtwoord via stdin, zodat het niet in de proceslijst verschijnt. bcrypt-hash.
+            printf '%s' "$BEHEER_PASSWORD" | htpasswd -niB -C 12 "$BEHEER_USER" | sed '/^$/d' > build/.htpasswd
+          fi
+
+          # GitHub-token voor de Publiceren-knop (alleen op de server, nooit in repo of zip)
+          if [ -n "$PUBLISH_GITHUB_TOKEN" ]; then
+            TOKEN=$(printf '%s' "$PUBLISH_GITHUB_TOKEN" | tr -d '[:space:]')
+            printf '%s' "$TOKEN" | grep -Eq '^[A-Za-z0-9_]+$' || { echo "::error::PUBLISH_GITHUB_TOKEN bevat ongeldige tekens."; exit 1; }
+            printf "<?php\nreturn ['token' => '%s', 'repo' => '%s', 'branch' => 'main'];\n" "$TOKEN" "$GITHUB_REPOSITORY" > build/.publish-config.php
+          else
+            echo "::warning::Secret PUBLISH_GITHUB_TOKEN ontbreekt. De Publiceren-knop zet wijzigingen wel live, maar slaat ze niet op in GitHub."
+          fi
+
+          cat > build/.htaccess <<EOF
+          AddDefaultCharset UTF-8
+          AddCharset UTF-8 .html .json .svg
+          DirectoryIndex index.html
+          Options -Indexes
+
+          <IfModule mod_rewrite.c>
+            RewriteEngine On
+            # Altijd https en zonder www
+            RewriteCond %{HTTPS} !=on [OR]
+            RewriteCond %{HTTP_HOST} ^www\. [NC]
+            RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+            RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+            # Oude adressen van de vorige site
+            RewriteRule ^privacy/?$ privacy.html [L]
+            RewriteRule ^portfolio/?$ /#portfolio [R=301,NE,L]
+          </IfModule>
+
+          ErrorDocument 404 /index.html
+
+          # Beheerpagina en publiceren alleen met gebruikersnaam en wachtwoord
+          <FilesMatch "^(beheer\.html|publish\.php)$">
+            AuthType Basic
+            AuthName "PixelForges beheer"
+            AuthUserFile "${BEHEER_HTPASSWD_PATH}"
+            Require valid-user
+          </FilesMatch>
+
+          # .htaccess, .htpasswd en de token-config nooit uitleveren
+          <FilesMatch "^\.(ht|publish-config)">
+            Require all denied
+          </FilesMatch>
+
+          <IfModule mod_headers.c>
+            Header always set X-Content-Type-Options "nosniff"
+            Header always set Referrer-Policy "strict-origin-when-cross-origin"
+            Header always set X-Frame-Options "SAMEORIGIN"
+            Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+            <Files "content.json">
+              Header set Cache-Control "no-cache"
+            </Files>
+            <FilesMatch "\.(webp|png|jpg|svg|woff2)$">
+              Header set Cache-Control "public, max-age=2592000"
+            </FilesMatch>
+            <FilesMatch "\.html$">
+              Header set Cache-Control "no-cache"
+            </FilesMatch>
+          </IfModule>
+
+          <IfModule mod_deflate.c>
+            AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+          </IfModule>
+          EOF
+          sed -i 's/^          //' build/.htaccess
+
+          cat > build/robots.txt <<EOF
+          User-agent: *
+          Disallow: /beheer.html
+          Sitemap: ${SITE_URL}/sitemap.xml
+          EOF
+          sed -i 's/^          //' build/robots.txt
+          TODAY=$(date -u +%Y-%m-%d)
+          printf '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>%s/</loc><lastmod>%s</lastmod><priority>1.0</priority></url>\n  <url><loc>%s/privacy</loc><lastmod>%s</lastmod><priority>0.3</priority></url>\n</urlset>\n' "$SITE_URL" "$TODAY" "$SITE_URL" "$TODAY" > build/sitemap.xml
+
+      - name: Zet live via FTP
+        if: steps.secrets.outputs.deploy == 'true'
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_DIR: ${{ secrets.FTP_DIR }}
+        run: |
+          HOST=$(printf '%s' "$FTP_SERVER" | tr -d '[:space:]' | sed -E 's#^[a-z]+://##; s#/.*$##')
+          PORT=$(printf '%s' "${FTP_PORT:-21}" | tr -cd '0-9'); PORT=${PORT:-21}
+          FTP_USER=$(printf '%s' "$FTP_USER" | tr -d '[:space:]')
+          # Wachtwoord via omgevingsvariabele, zodat het niet in de opdrachtregel of logs staat
+          export LFTP_PASSWORD="$(printf '%s' "$FTP_PASSWORD" | tr -d '\r\n')"
+          if [ "$PORT" = "22" ]; then URL="sftp://$HOST"; else URL="ftp://$HOST"; fi
+          SETTINGS="set sftp:auto-confirm yes; set ftp:ssl-allow yes; set ssl:verify-certificate no; set ftp:passive-mode yes; set net:timeout 25; set net:max-retries 2; set net:reconnect-interval-base 5"
+
+          # Doelmap: secret FTP_DIR, anders public_html/pixelforges.nl als die bestaat, anders de map waar het FTP-account start
+          if [ -n "$FTP_DIR" ]; then
+            TARGET=$(printf '%s' "$FTP_DIR" | tr -d '\r\n')
+          else
+            ROOT=$(lftp --env-password -u "$FTP_USER" -p "$PORT" -e "$SETTINGS; cls -1; bye" "$URL" 2>&1) || { MSG=$(printf '%s' "$ROOT" | tail -3 | tr '\n' ' ' | cut -c1-300); echo "::error::Kan niet verbinden met de FTP-server (poort $PORT). Melding: $MSG"; exit 1; }
+            if printf '%s\n' "$ROOT" | grep -qx 'public_html/\?'; then
+              SUB=$(lftp --env-password -u "$FTP_USER" -p "$PORT" -e "$SETTINGS; cls -1 public_html/; bye" "$URL" 2>&1 || true)
+              if printf '%s\n' "$SUB" | grep -Eq '(^|/)pixelforges\.nl/?$'; then
+                TARGET="public_html/pixelforges.nl"
+              else
+                echo "::error::Dit FTP-account start in je thuismap en er is geen map public_html/pixelforges.nl. Zet secret FTP_DIR op de webmap van pixelforges.nl (bijv. public_html of public_html/pixelforges.nl), zodat er niets in de map van een andere site terechtkomt."
+                exit 1
+              fi
+            else
+              TARGET="."
+            fi
+          fi
+          echo "Uploaden naar: $TARGET"
+          lftp --env-password -u "$FTP_USER" -p "$PORT" -e "$SETTINGS; mkdir -p -f '$TARGET'; cd '$TARGET'; mirror --reverse --verbose=1 --parallel=4 --no-perms --exclude-glob .git* ./build/ ./; bye" "$URL"
+
+      - name: Controleer live site
+        if: steps.secrets.outputs.deploy == 'true'
+        run: |
+          sleep 3
+          code=$(curl -s -o /tmp/live.html -w '%{http_code}' "$SITE_URL/index.html?v=${GITHUB_RUN_NUMBER}")
+          echo "index.html: HTTP $code"
+          if ! grep -q 'pixelforges-site' /tmp/live.html; then
+            echo "::warning::$SITE_URL toont nog niet de nieuwe site. Wijst het domein (DNS) al naar je eigen hosting? Zolang het nog naar Base44 wijst, staat de nieuwe site alleen op de server klaar."
+            exit 0
+          fi
+          curl -s "$SITE_URL/content.json?v=${GITHUB_RUN_NUMBER}" | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d['projects']), 'projecten live')"
+          for f in beheer.html publish.php .publish-config.php .htpasswd; do
+            c=$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL/$f")
+            echo "$f zonder login: HTTP $c"
+            case "$c" in 401|403) ;; *) echo "::error::$f is bereikbaar zonder login (HTTP $c)."; exit 1 ;; esac
+          done
+
+      - name: Maak zip
+        id: zip
+        run: |
+          TAG="v$(date -u +%Y.%m.%d)-${GITHUB_RUN_NUMBER}"
+          NAME="pixelforges-site-${TAG}.zip"
+          (cd build && zip -qr "../${NAME}" . -x .htpasswd .publish-config.php)
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "name=${NAME}" >> "$GITHUB_OUTPUT"
+          unzip -l "${NAME}" | tail -1
+
+      - name: Publiceer release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MSG: ${{ github.event.head_commit.message || 'Handmatige release' }}
+          DEPLOYED: ${{ steps.secrets.outputs.deploy }}
+        run: |
+          {
+            echo "${MSG}"
+            echo
+            if [ "$DEPLOYED" = "true" ]; then
+              echo "Deze versie is automatisch via FTP live gezet. De zip is een back-up (zonder .htpasswd en token)."
+            else
+              echo "Niet live gezet (FTP-secrets ontbreken). Pak de zip uit in de webmap van pixelforges.nl om hem handmatig te plaatsen."
+            fi
+          } > notes.md
+          gh release create "${{ steps.zip.outputs.tag }}" "${{ steps.zip.outputs.name }}" \
+            --target "${GITHUB_SHA}" \
+            --title "Site ${{ steps.zip.outputs.tag }}" \
+            --notes-file notes.md

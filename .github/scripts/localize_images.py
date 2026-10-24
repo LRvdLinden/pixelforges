@@ -31,6 +31,7 @@ def main() -> int:
     with open(CONTENT, encoding="utf-8") as f:
         data = json.load(f)
     changed = 0
+    os.makedirs(os.path.join(ROOT, "img"), exist_ok=True)
     for section, (key, max_side) in FIELDS.items():
         for item in data.get(section, []):
             url = item.get(key) or ""

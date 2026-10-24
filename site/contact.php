@@ -64,8 +64,8 @@ $hits[] = $now;
 
 // Ontvanger uit content.json
 $content = json_decode((string)@file_get_contents(__DIR__ . '/content.json'), true);
-$to = $content['settings']['email'] ?? 'info@pixelforges.nl';
-if (!filter_var($to, FILTER_VALIDATE_EMAIL)) $to = 'info@pixelforges.nl';
+$to = $content['settings']['email'] ?? 'hallo@pixelforges.nl';
+if (!filter_var($to, FILTER_VALIDATE_EMAIL)) $to = 'hallo@pixelforges.nl';
 
 $labels = [];
 foreach (($content['packages'] ?? []) as $p) $labels[$p['id'] ?? ''] = $p['name'] ?? '';

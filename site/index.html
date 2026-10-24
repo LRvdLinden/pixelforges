@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"PixelForges","url":"https://pixelforges.nl/","image":"https://pixelforges.nl/og.png","logo":"https://pixelforges.nl/apple-touch-icon.png","email":"info@pixelforges.nl","description":"Professionele websites voor MKB en ZZP.","areaServed":"NL","address":{"@type":"PostalAddress","addressLocality":"Apeldoorn","addressCountry":"NL"},"priceRange":"€€","sameAs":["https://facebook.com/PixelForgesNL","https://instagram.com/PixelForgesNL"]}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"PixelForges","url":"https://pixelforges.nl/","image":"https://pixelforges.nl/og.png","logo":"https://pixelforges.nl/apple-touch-icon.png","email":"hallo@pixelforges.nl","description":"Professionele websites voor MKB en ZZP.","areaServed":"NL","address":{"@type":"PostalAddress","addressLocality":"Apeldoorn","addressCountry":"NL"},"priceRange":"€€","sameAs":["https://facebook.com/PixelForgesNL","https://instagram.com/PixelForgesNL"]}
 </script>
 <style>
 :root{
@@ -797,7 +797,7 @@ form.addEventListener("submit", async e => {
     if (!r.ok || !res.ok) throw new Error(res.error || "Versturen lukte niet.");
     form.innerHTML = `<div class="sent"><div class="ic">${ICON.check}</div><h3>Bedankt, ${esc(fd.name.split(" ")[0])}!</h3><p>We hebben je bericht ontvangen en reageren binnen ${esc($('[data-c="settings.responseTime"]')?.textContent || "24u")}.</p></div>`;
   } catch (err) {
-    const mail = window.__C?.settings?.email || "info@pixelforges.nl";
+    const mail = window.__C?.settings?.email || "hallo@pixelforges.nl";
     msg.className = "form-msg err";
     msg.innerHTML = `${esc(err.message)} Mail ons gerust direct via <a href="mailto:${esc(mail)}" style="color:inherit">${esc(mail)}</a>.`;
     btn.disabled = false; btn.firstChild.textContent = "Verstuur bericht ";

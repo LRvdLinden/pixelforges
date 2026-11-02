@@ -117,6 +117,8 @@ jobs:
           cat > build/.htaccess <<EOF
           AddDefaultCharset UTF-8
           AddCharset UTF-8 .html .json .svg
+          AddType application/manifest+json .webmanifest
+          AddType image/x-icon .ico
           DirectoryIndex index.html
           Options -Indexes
 

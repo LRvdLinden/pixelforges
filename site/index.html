@@ -152,7 +152,8 @@ h1 .caret{display:inline-block;width:.09em;height:.8em;background:var(--lime);ma
 .forge-badge b{display:block;font-size:14px}
 .forge-badge small{color:var(--dim)}
 @media (max-width:980px){.hero .wrap{grid-template-columns:1fr}.window{transform:none}.forge{max-width:620px}}
-@media (max-width:560px){.hero{padding:120px 0 70px}.win-body{grid-template-columns:1fr;min-height:0}.code{border-right:0;border-bottom:1px solid var(--line);min-height:250px;font-size:11.5px}.forge-badge{right:8px}}
+@media (max-width:560px){.hero{padding:112px 0 64px}.win-body{grid-template-columns:1.1fr .9fr;min-height:236px}.code{padding:14px 10px;font-size:9.5px;line-height:1.85}.code .ln{width:14px}.preview{padding:10px;gap:8px}.pv-cards div{height:44px}.url{margin-left:6px}.forge-badge{right:8px;bottom:-26px;padding:10px 12px}.forge-badge .ic{width:30px;height:30px}.hero-proof{gap:20px}.hero-ctas .btn{flex:1 1 auto}}
+@media (max-width:380px){.code{font-size:8.5px}.hero-proof .proof b{font-size:22px}.contact-info,form{padding:24px 18px}.stat{padding:22px 18px}.review{padding:28px 22px}.plan{padding:26px 20px}}
 
 /* Marquee */
 .marquee{border-block:1px solid var(--line);padding:20px 0;overflow:hidden;background:rgba(255,255,255,.012);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
@@ -220,10 +221,16 @@ h2 .muted{color:var(--dim)}
 .project{position:relative;display:flex;flex-direction:column;border-radius:22px;background:var(--bg-2);border:1px solid var(--line);overflow:hidden;text-decoration:none;transition:transform .4s var(--ease),border-color .3s;animation:fadeUp .5s var(--ease) both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}}
 .project:hover{transform:translateY(-4px);border-color:var(--line-2)}
-.shot{position:relative;aspect-ratio:16/11;overflow:hidden;background:#111}
+.shot{position:relative;aspect-ratio:1200/630;max-width:100%;overflow:hidden;background:#111}
 .shot .blur{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(28px) saturate(1.4) brightness(.55);transform:scale(1.15)}
-.shot img{position:relative;width:100%;height:100%;object-fit:contain;padding:22px;transition:transform .6s var(--ease)}
-.shot img.cover{object-fit:cover;padding:0}
+.shot img{position:absolute;inset:0;margin:auto;width:100%;height:100%;object-fit:contain;transition:transform .6s var(--ease)}
+/* Brede deelafbeelding (og:image, ±1.91:1): helemaal zichtbaar, vult de kaart */
+.shot img.wide{object-fit:contain}
+/* Vierkant app-icoon of logo: gecentreerd als icoon */
+.shot img.icon{width:auto;height:66%;aspect-ratio:1;object-fit:cover;border-radius:20%;box-shadow:0 18px 40px -12px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06)}
+.shot img.icon.alpha{border-radius:0;box-shadow:none;object-fit:contain;filter:drop-shadow(0 14px 24px rgba(0,0,0,.55))}
+/* Iets daartussen (bijv. 4:3-screenshot): met wat ruimte eromheen */
+.shot img.mid{width:auto;height:84%;max-width:90%;border-radius:10px;box-shadow:0 18px 40px -14px rgba(0,0,0,.7)}
 .project:hover .shot img{transform:scale(1.04)}
 .shot .go{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;transform:scale(.6) rotate(-45deg);opacity:0;transition:all .35s var(--ease)}
 .shot .go svg{width:18px;height:18px}
@@ -233,7 +240,7 @@ h2 .muted{color:var(--dim)}
 .tag{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.05);color:var(--muted)}
 .tag.pro{background:var(--lime-soft);color:var(--lime)}
 .project h3{margin:4px 0 0;font-size:20px;letter-spacing:-.025em}
-.project p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55}
+.project p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 .project .domain{margin-top:auto;padding-top:12px;font:12px var(--mono);color:var(--dim)}
 .more{display:flex;justify-content:center;margin-top:36px}
 @media (max-width:980px){.projects{grid-template-columns:1fr 1fr}}
@@ -241,9 +248,9 @@ h2 .muted{color:var(--dim)}
 
 /* Stats + review */
 .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .stat{padding:30px 26px;border-radius:var(--radius);border:1px solid var(--line);background:var(--bg-2)}
-.stat b{display:block;font-size:clamp(40px,5vw,56px);font-weight:800;letter-spacing:-.05em;line-height:1;margin-bottom:10px}
+.stat b{display:block;font-size:clamp(30px,5vw,56px);font-weight:800;letter-spacing:-.05em;line-height:1;margin-bottom:10px}
 .stat small{color:var(--muted);font-size:14px}
 .stat:first-child b{color:var(--lime)}
 .review{position:relative;padding:40px 36px;border-radius:var(--radius);background:linear-gradient(135deg,rgba(208,251,101,.09),rgba(208,251,101,.01));border:1px solid var(--lime-line);display:flex;flex-direction:column;justify-content:space-between;gap:30px;overflow:hidden}
@@ -253,6 +260,7 @@ h2 .muted{color:var(--dim)}
 .who img,.who .av{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--lime);background:var(--surface-2)}
 .who b{display:block}
 .who a,.who span{color:var(--muted);font-size:14px;text-decoration:none}
+.who a{display:inline-block;padding:6px 0}
 .who a:hover{color:var(--lime)}
 .review-nav{display:flex;gap:8px}
 .review-nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:transparent;cursor:pointer;color:var(--text)}
@@ -344,7 +352,8 @@ footer{padding:80px 0 40px;margin-top:40px}
 .socials a:hover{border-color:var(--lime);color:var(--lime)}
 .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:28px;color:var(--dim);font-size:13px}
 .foot-bottom .heart{color:var(--lime)}
-@media (max-width:800px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}}
+@media (max-width:800px){.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.foot-grid>div:first-child{grid-column:1/-1}}
+@media (max-width:400px){.foot-grid{grid-template-columns:1fr;gap:28px}.foot-grid a{overflow-wrap:anywhere}.foot-grid ul{gap:4px}.foot-grid li a{display:inline-block;padding:6px 0}}
 
 /* Reveal */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -353,9 +362,12 @@ footer{padding:80px 0 40px;margin-top:40px}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
 
 /* Sticky mobiele CTA */
-.m-cta{position:fixed;left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:40;display:none;transform:translateY(120%);transition:transform .4s var(--ease)}
+.m-cta{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(10,10,15,.82);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s var(--ease)}
 .m-cta.show{transform:none}
-.m-cta .btn{width:100%;box-shadow:0 14px 40px -10px rgba(0,0,0,.8)}
+.m-cta .wrap{display:flex;align-items:center;gap:12px;padding:0}
+.m-cta small{flex:1;min-width:0;color:var(--muted);font-size:13px;line-height:1.3}
+.m-cta small b{display:block;color:var(--text);font-size:14px}
+.m-cta .btn{height:46px;padding:0 18px;flex:none}
 @media (max-width:700px){.m-cta{display:block}}
 </style>
 </head>
@@ -562,7 +574,7 @@ footer{padding:80px 0 40px;margin-top:40px}
   </div>
 </footer>
 
-<div class="m-cta" id="mCta"><a href="#contact" class="btn btn-lime">Start je project</a></div>
+<div class="m-cta" id="mCta" aria-hidden="false"><div class="wrap"><small><b>Website nodig?</b>Offerte binnen <span data-c="settings.responseTime">24u</span></small><a href="#contact" class="btn btn-lime">Start je project</a></div></div>
 
 <script>
 (() => {
@@ -591,10 +603,15 @@ const ICON = {
 
 /* ---------- Navigatie ---------- */
 const nav = $("#nav"), mCta = $("#mCta");
+let lastY = scrollY;
 const onScroll = () => {
-  nav.classList.toggle("scrolled", scrollY > 20);
+  const y = scrollY, up = y < lastY - 4, down = y > lastY + 4;
+  nav.classList.toggle("scrolled", y > 20);
   const c = $("#contact").getBoundingClientRect();
-  mCta.classList.toggle("show", scrollY > 600 && c.top > innerHeight * .6);
+  const allowed = y > 600 && c.top > innerHeight * .9;
+  if (!allowed || down) mCta.classList.remove("show");
+  else if (up) mCta.classList.add("show");
+  if (up || down) lastY = y;
 };
 addEventListener("scroll", onScroll, { passive: true }); onScroll();
 const menu = $("#mobileMenu");
@@ -756,14 +773,36 @@ function renderProjects(list) {
   $("#projects").innerHTML = shown.map((p, i) => {
     const img = safeUrl(p.image);
     return `<a class="project" href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener" style="animation-delay:${i * 50}ms">
-      <div class="shot">${img ? `<div class="blur" style="background-image:url('${esc(img)}')"></div><img src="${esc(img)}" alt="${esc(p.name)}" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'" onload="if(this.naturalWidth/this.naturalHeight>1.25)this.classList.add('cover')">` : ""}<span class="go">${ICON.arrow}</span></div>
+      <div class="shot">${img ? `<div class="blur" style="background-image:url('${esc(img)}')"></div><img src="${esc(img)}" alt="${esc(p.name)}" loading="lazy" decoding="async" onerror="this.style.visibility='hidden'">` : ""}<span class="go">${ICON.arrow}</span></div>
       <div class="p-body"><div class="tags">${(p.tags || []).map(t => `<span class="tag${/pro/i.test(t) ? " pro" : ""}">${esc(t)}</span>`).join("")}</div><h3>${esc(p.name)}</h3><p>${esc(p.description)}</p><span class="domain">${esc(domain(p.url))} ↗</span></div>
     </a>`;
   }).join("");
+  $$("#projects .shot img").forEach(fitShot);
   $("#moreWrap").style.display = total > 6 && !showAll ? "" : "none";
   $("#moreBtn").textContent = `Toon alle ${total} projecten`;
 }
 $("#moreBtn").onclick = () => { showAll = true; renderProjects(allProjects); };
+
+/* Bepaalt per afbeelding hoe hij in de kaart past: breed (og:image), vierkant icoon of iets ertussen */
+function fitShot(img) {
+  const apply = () => {
+    const r = img.naturalWidth / img.naturalHeight;
+    if (!r) return;
+    img.classList.remove("wide", "icon", "mid", "alpha");
+    if (r >= 1.5) img.classList.add("wide");
+    else if (r >= .8 && r <= 1.25) {
+      img.classList.add("icon");
+      try { // transparante hoeken? Dan geen afgeronde tegel eromheen
+        const c = document.createElement("canvas"); c.width = c.height = 8;
+        const x = c.getContext("2d"); x.drawImage(img, 0, 0, 8, 8);
+        const d = x.getImageData(0, 0, 8, 8).data;
+        if (d[3] < 200 || d[31] < 200 || d[227] < 200 || d[255] < 200) img.classList.add("alpha");
+      } catch { }
+    } else img.classList.add("mid");
+    img.classList.add("fit");
+  };
+  if (img.complete && img.naturalWidth) apply(); else img.addEventListener("load", apply, { once: true });
+}
 
 let rIdx = 0;
 function renderReviews(list) {

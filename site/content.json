@@ -98,6 +98,17 @@
     ],
     "projects": [
         {
+            "id": "lrvdlinden-apps",
+            "name": "LRvdLinden Apps",
+            "url": "https://lrvdlinden.app",
+            "image": "",
+            "tags": [
+                "Website"
+            ],
+            "description": "iOS- en Homey-apps gemaakt door Léon van der Linden.",
+            "featured": true
+        },
+        {
             "id": "wksleutelhangers",
             "name": "wksleutelhangers.nl",
             "url": "https://wksleutelhangers.nl",

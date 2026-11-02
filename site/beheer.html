@@ -84,6 +84,11 @@ main{max-width:1280px;margin:0 auto;padding:24px 20px 120px}
 .bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
 .bar .sp{flex:1}
 .empty{color:var(--dim);text-align:center;padding:40px}
+.fetch-card{margin-bottom:20px;padding:18px 22px;background:linear-gradient(135deg,rgba(208,251,101,.06),var(--bg-2) 60%);border-color:var(--lime-line)}
+.fetch-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.fetch-row .btn{height:42px;padding:0 20px}
+.fetch-card .help{margin-top:8px;min-height:0}
+.fetch-card .help:empty{display:none}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--surface-2);border:1px solid var(--line-2);padding:10px 16px;border-radius:10px;font-size:14px;z-index:100;box-shadow:0 10px 30px rgba(0,0,0,.6)}
 .pub-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .pub-row input{flex:1;min-width:220px;background:rgba(255,255,255,.03);border:1px solid var(--line-2);border-radius:10px;padding:0 12px;height:38px;outline:none}
@@ -259,16 +264,24 @@ function render() {
   const arr = getArr(tab);
   if (sel[tab] == null || sel[tab] >= arr.length) sel[tab] = 0;
   const cur = arr[sel[tab]];
-  v.innerHTML = `<div class="cols">
+  const fetchCard = tab === "projects" ? `<form class="card fetch-card" id="fetchForm" novalidate>
+      <div class="fetch-row">
+        <div class="f" style="flex:1;min-width:240px"><label for="fetchUrl">Nieuw project van een website <small>· Vult naam, omschrijving en afbeelding automatisch in</small></label><input id="fetchUrl" type="url" inputmode="url" placeholder="https://klantwebsite.nl" autocomplete="off"></div>
+        <button class="btn lime" type="submit" id="fetchBtn">Ophalen</button>
+      </div>
+      <div id="fetchMsg" class="help" aria-live="polite"></div>
+    </form>` : "";
+  v.innerHTML = `${fetchCard}<div class="cols">
     <div class="list"><div class="list-head"><b>${esc(s.label)} · ${arr.length}</b><button class="btn sm lime" id="add">+ Nieuw</button></div>
       <div class="items">${arr.map((x, i) => `<button class="item${i === sel[tab] ? " on" : ""}" data-i="${i}">${s.image ? (x[s.image] ? `<img src="${esc(src(x[s.image]))}" alt="" style="${s.round ? "border-radius:50%" : ""}">` : `<span class="ph"></span>`) : `<span class="ph" style="display:grid;place-items:center;font:12px var(--mono);color:var(--dim)">${i + 1}</span>`}<span class="t"><b>${esc(s.title(x) || "(zonder naam)")}</b><small>${esc(s.subtitle(x) || "")}</small></span>${s.star && x[s.star] ? '<span class="star">★</span>' : ""}</button>`).join("") || '<div class="empty">Nog niets toegevoegd</div>'}</div>
     </div>
     <div>${cur ? `<div class="card" id="ed"><h2>${esc(s.title(cur) || "(zonder naam)")}</h2><p class="sub">${NEEDS_ID.includes(tab) ? `ID: <code style="font-family:var(--mono)">${esc(cur.id)}</code>` : `Positie ${sel[tab] + 1} van ${arr.length}`}</p>
       <div class="fields">${s.fields.map(f => fieldHtml(tab, f, cur)).join("")}</div>
-      <div class="bar"><button class="btn sm" id="up" ${sel[tab] === 0 ? "disabled" : ""}>↑ Omhoog</button><button class="btn sm" id="down" ${sel[tab] === arr.length - 1 ? "disabled" : ""}>↓ Omlaag</button><button class="btn sm" id="dup">Dupliceren</button><span class="sp"></span><button class="btn sm danger" id="del">Verwijderen</button></div>
+      <div class="bar">${tab === "projects" ? `<button class="btn sm" id="refetch" title="Haalt omschrijving en afbeelding opnieuw op van de website hierboven">↻ Opnieuw ophalen</button>` : ""}<button class="btn sm" id="up" ${sel[tab] === 0 ? "disabled" : ""}>↑ Omhoog</button><button class="btn sm" id="down" ${sel[tab] === arr.length - 1 ? "disabled" : ""}>↓ Omlaag</button><button class="btn sm" id="dup">Dupliceren</button><span class="sp"></span><button class="btn sm danger" id="del">Verwijderen</button></div>
     </div>` : `<div class="card empty">Kies links een item of voeg er een toe.</div>`}</div>
   </div>`;
   $$(".item", v).forEach(b => b.onclick = () => { sel[tab] = +b.dataset.i; render(); });
+  if (tab === "projects") bindFetch(v, arr);
   $("#add", v).onclick = () => { const n = s.create(); if (NEEDS_ID.includes(tab)) n.id = uniqueId(arr, n.name); arr.push(n); sel[tab] = arr.length - 1; save(); render(); $("#ed input")?.focus(); };
   if (!cur) return;
   const ed = $("#ed", v);
@@ -278,8 +291,70 @@ function render() {
   const move = d => { const i = sel[tab], j = i + d; [arr[i], arr[j]] = [arr[j], arr[i]]; sel[tab] = j; save(); render(); };
   $("#up", ed).onclick = () => move(-1); $("#down", ed).onclick = () => move(1);
   $("#dup", ed).onclick = () => { const c = JSON.parse(JSON.stringify(cur)); if (NEEDS_ID.includes(tab)) c.id = uniqueId(arr, (cur.name || cur.id) + "-kopie"); arr.splice(sel[tab] + 1, 0, c); sel[tab]++; save(); render(); };
+  const rf = $("#refetch", ed);
+  if (rf) rf.onclick = async () => {
+    if (!/^https?:\/\/[^/]+\.[a-z]{2,}/i.test(cur.url || "")) { toast("Vul eerst een geldig website-adres in."); return; }
+    rf.disabled = true; rf.textContent = "Ophalen…";
+    try {
+      const m = await fetchMeta(cur.url);
+      if (m.description) cur.description = m.description;
+      if (!cur.name || cur.name === "Nieuw project") cur.name = m.name;
+      const img = await metaImage(m, cur);
+      if (img) setImage(cur, img);
+      save(); render();
+      toast(img ? "Omschrijving en afbeelding bijgewerkt" : "Omschrijving bijgewerkt. " + (m.imageError || ""));
+    } catch (e) { toast("Ophalen mislukt: " + e.message); rf.disabled = false; rf.textContent = "↻ Opnieuw ophalen"; }
+  };
   $("#del", ed).onclick = () => { if (!confirm(`"${s.title(cur) || "dit item"}" verwijderen?`)) return; for (const k of ["image", "photo"]) if (cur[k] && PENDING[cur[k]]) delete PENDING[cur[k]]; arr.splice(sel[tab], 1); sel[tab] = Math.max(0, sel[tab] - 1); save(); render(); };
 }
+/* ---------- Gegevens van een website ophalen ---------- */
+const hostOf = u => { try { return new URL(/^https?:\/\//i.test(u) ? u : "https://" + u).hostname.replace(/^www\./, "").toLowerCase(); } catch { return ""; } };
+async function fetchMeta(url) {
+  const r = await fetch("fetch-meta.php", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json", "X-PF-Beheer": "1" }, body: JSON.stringify({ url }) });
+  const res = await r.json().catch(() => null);
+  if (!res) throw new Error(r.status === 404 ? "fetch-meta.php staat nog niet op de server. Draai eerst de deploy." : "De server gaf HTTP " + r.status + ".");
+  if (!res.ok) throw new Error(res.error || "Onbekende fout.");
+  return res;
+}
+/** Zet de opgehaalde afbeelding om naar WebP (max. 1200 px) en geeft { path, data, url } terug. */
+async function metaImage(m, item) {
+  if (!m.image) return null;
+  try {
+    const bin = Uint8Array.from(atob(m.image.data), c => c.charCodeAt(0));
+    const { b64, url } = await resize(new Blob([bin], { type: m.image.mime }), 1200);
+    return { path: `img/${slug(item.id || item.name)}-${Date.now().toString(36)}.webp`, data: b64, url };
+  } catch { m.imageError = "Afbeeldingsformaat (" + m.image.mime + ") wordt niet ondersteund; upload er zelf een."; return null; }
+}
+function setImage(item, img) {
+  if (item.image && PENDING[item.image]) delete PENDING[item.image];
+  PENDING[img.path] = { data: img.data, url: img.url };
+  item.image = img.path;
+}
+function bindFetch(v, arr) {
+  const form = $("#fetchForm", v), input = $("#fetchUrl", v), btn = $("#fetchBtn", v), msg = $("#fetchMsg", v);
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const raw = input.value.trim(), host = hostOf(raw);
+    if (!host || !host.includes(".")) { msg.textContent = "Vul een website-adres in, bijv. klantwebsite.nl"; input.focus(); return; }
+    const dupe = arr.findIndex(p => hostOf(p.url) === host);
+    if (dupe >= 0) { sel.projects = dupe; render(); toast(`${host} staat al in je portfolio`); return; }
+    btn.disabled = true; btn.textContent = "Ophalen…"; msg.textContent = `Bezig met ${host} ophalen…`;
+    try {
+      const m = await fetchMeta(raw);
+      const item = { id: "", name: m.name || host, url: m.url, image: "", tags: ["Website"], description: m.description || "", featured: true };
+      item.id = uniqueId(arr, item.name);
+      const img = await metaImage(m, item);
+      if (img) setImage(item, img);
+      arr.unshift(item); sel.projects = 0; save(); render();
+      const notes = [img ? "" : (m.imageError || "Geen afbeelding gevonden; upload er zelf een."), m.description ? "" : "Geen omschrijving gevonden; vul die zelf in."].filter(Boolean);
+      showResult(notes.length ? "warn" : "ok", `<b>${esc(item.name)}</b> is toegevoegd bovenaan je portfolio. Controleer de labels en tekst en klik daarna op Publiceren.${notes.length ? "<br>" + notes.map(esc).join("<br>") : ""}`);
+    } catch (err) {
+      msg.textContent = "Ophalen mislukt: " + err.message;
+      btn.disabled = false; btn.textContent = "Ophalen";
+    }
+  };
+}
+
 function uniqueId(arr, name) { const b = slug(name); let id = b, n = 2; while (arr.some(x => x.id === id)) id = `${b}-${n++}`; return id; }
 
 /* ---------- Publiceren ---------- */

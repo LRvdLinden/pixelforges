@@ -96,7 +96,7 @@ jobs:
           rm -rf build && mkdir build
           cp -r site/. build/
           if [ "$BEHEER" != "true" ]; then
-            rm -f build/beheer.html build/publish.php
+            rm -f build/beheer.html build/publish.php build/fetch-meta.php
             echo "::warning::beheer.html en publish.php zijn niet meegenomen (BEHEER-secrets ontbreken)."
           fi
 
@@ -135,7 +135,7 @@ jobs:
           ErrorDocument 404 /index.html
 
           # Beheerpagina en publiceren alleen met gebruikersnaam en wachtwoord
-          <FilesMatch "^(beheer\.html|publish\.php)$">
+          <FilesMatch "^(beheer\.html|publish\.php|fetch-meta\.php)$">
             AuthType Basic
             AuthName "PixelForges beheer"
             AuthUserFile "${BEHEER_HTPASSWD_PATH}"
@@ -240,7 +240,7 @@ jobs:
           fi
           curl -s "$SITE_URL/content.json?v=${GITHUB_RUN_NUMBER}" | python3 -c "import json,sys; d=json.load(sys.stdin); print(len(d['projects']), 'projecten live')"
           FILES=".publish-config.php .htpasswd"
-          [ "$BEHEER" = "true" ] && FILES="beheer.html publish.php $FILES"
+          [ "$BEHEER" = "true" ] && FILES="beheer.html publish.php fetch-meta.php $FILES"
           for f in $FILES; do
             c=$(curl -s -o /dev/null -w '%{http_code}' "$SITE_URL/$f")
             echo "$f zonder login: HTTP $c"

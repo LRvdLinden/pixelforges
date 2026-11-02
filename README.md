@@ -10,6 +10,7 @@ Website van PixelForges: professionele websites voor MKB en ZZP.
   - `content.json` – alle teksten, pakketten, portfolio, reviews en vragen
   - `beheer.html` – beheerpagina om `content.json` te bewerken (achter wachtwoord)
   - `publish.php` – Publiceren-knop: zet wijzigingen live en commit ze naar deze repo
+  - `fetch-meta.php` – haalt naam, omschrijving en og:image op van een website voor nieuwe portfolio-items (achter wachtwoord)
   - `contact.php` – contactformulier, mailt naar het e-mailadres onder *Algemeen* in beheer
   - `img/` – afbeeldingen (portfolio en reviews)
 - `.github/workflows/release.yml` – zet elke wijziging in `site/` via FTP live en maakt een zip-release

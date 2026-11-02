@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>PixelForges banner</title>
+<style>
+@font-face{font-family:"Inter";font-weight:400;src:url(../fonts/inter-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:500;src:url(../fonts/inter-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:600;src:url(../fonts/inter-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:700;src:url(../fonts/inter-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:800;src:url(../fonts/inter-latin-800-normal.woff2) format("woff2")}
+@font-face{font-family:"JBM";font-weight:400;src:url(../fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"JBM";font-weight:500;src:url(../fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"JBM";font-weight:600;src:url(../fonts/jetbrains-mono-latin-600-normal.woff2) format("woff2")}
+:root{
+  /* Huisstijl PixelForges, gelijk aan de site */
+  --bg:#0a0a0f; --bg-2:#0d0d14; --surface:#14141e; --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14);
+  --text:#f5f5f7; --muted:#9ca3af; --dim:#6b7280; --lime:#d0fb65; --ink:#0a0a0f;
+  --sans:"Inter",system-ui,sans-serif; --mono:"JBM",ui-monospace,monospace;
+  --u:1px; /* schaaleenheid per formaat */
+}
+*{box-sizing:border-box;margin:0}
+html,body{width:100%;height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.stage{position:relative;width:100%;height:100%;overflow:hidden;background:var(--bg)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:calc(56*var(--u)) calc(56*var(--u));mask-image:radial-gradient(ellipse 85% 80% at var(--gx,70%) var(--gy,20%),#000 25%,transparent 80%)}
+.glow{position:absolute;width:calc(1100*var(--u));height:calc(1100*var(--u));left:var(--glx,72%);top:var(--gly,-20%);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(208,251,101,.22),rgba(208,251,101,0) 62%);pointer-events:none}
+.noise{position:absolute;inset:0;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.tok{position:absolute;font-family:var(--mono);color:rgba(255,255,255,.07);white-space:nowrap}
+.abs{position:absolute}
+
+/* Logo */
+.logo{display:flex;align-items:center;gap:calc(12*var(--u));font-weight:800;letter-spacing:-.035em;font-size:calc(30*var(--u));line-height:1}
+.logo svg{width:1.15em;height:1.15em;flex:none}
+.logo b{color:var(--lime);font-weight:800}
+
+/* Typografie */
+.eyebrow{display:inline-flex;align-items:center;gap:calc(10*var(--u));font:500 calc(15*var(--u))/1 var(--mono);color:var(--lime);padding:calc(9*var(--u)) calc(16*var(--u)) calc(9*var(--u)) calc(12*var(--u));border:1px solid rgba(208,251,101,.3);background:rgba(208,251,101,.08);border-radius:999px;white-space:nowrap}
+.eyebrow i{width:calc(8*var(--u));height:calc(8*var(--u));border-radius:50%;background:var(--lime);box-shadow:0 0 0 calc(5*var(--u)) rgba(208,251,101,.15)}
+h1{font-weight:800;text-transform:uppercase;letter-spacing:-.055em;line-height:.9;font-size:calc(96*var(--u));white-space:nowrap}
+h1 .l2{display:block;color:var(--lime)}
+h1 .caret{display:inline-block;width:.085em;height:.78em;background:var(--lime);margin-left:.05em;vertical-align:-.03em}
+h2{font-weight:800;letter-spacing:-.045em;line-height:.95;font-size:calc(72*var(--u))}
+h2 .muted{color:var(--dim)}
+.lead{color:var(--muted);font-size:calc(22*var(--u));line-height:1.45;font-weight:400}
+.chips{display:flex;gap:calc(10*var(--u));flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:calc(8*var(--u));height:calc(40*var(--u));padding:0 calc(16*var(--u));border-radius:999px;border:1px solid var(--line-2);background:rgba(255,255,255,.04);font-size:calc(16*var(--u));font-weight:500;white-space:nowrap}
+.chip svg{width:calc(16*var(--u));height:calc(16*var(--u));color:var(--lime)}
+.cta{display:inline-flex;align-items:center;gap:calc(12*var(--u));height:calc(60*var(--u));padding:0 calc(28*var(--u));border-radius:999px;background:var(--lime);color:var(--ink);font-weight:700;font-size:calc(20*var(--u));white-space:nowrap;box-shadow:0 calc(14*var(--u)) calc(50*var(--u)) calc(-12*var(--u)) rgba(208,251,101,.6)}
+.cta svg{width:1em;height:1em}
+.url{font:500 calc(18*var(--u))/1 var(--mono);color:var(--muted);display:inline-flex;align-items:center;gap:calc(10*var(--u))}
+.url::before{content:"";width:calc(22*var(--u));height:1px;background:var(--lime)}
+.stars{color:var(--lime);letter-spacing:.15em;font-size:calc(18*var(--u))}
+
+/* Browservenster: code bouwt een website */
+.window{border-radius:calc(20*var(--u));background:linear-gradient(180deg,#15151f,#0e0e16);border:1px solid var(--line-2);box-shadow:0 calc(50*var(--u)) calc(120*var(--u)) calc(-30*var(--u)) rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.07);overflow:hidden;width:calc(var(--ww,640)*var(--u))}
+.wbar{display:flex;align-items:center;gap:calc(8*var(--u));padding:calc(13*var(--u)) calc(16*var(--u));border-bottom:1px solid var(--line)}
+.wbar i{width:calc(11*var(--u));height:calc(11*var(--u));border-radius:50%}
+.wbar i:nth-child(1){background:#ff5f57}.wbar i:nth-child(2){background:#febc2e}.wbar i:nth-child(3){background:#28c840}
+.wurl{margin-left:calc(12*var(--u));flex:1;height:calc(28*var(--u));border-radius:calc(8*var(--u));background:rgba(255,255,255,.04);font:calc(13*var(--u)) var(--mono);color:var(--dim);display:flex;align-items:center;padding:0 calc(12*var(--u));gap:calc(8*var(--u))}
+.wurl svg{width:calc(12*var(--u));height:calc(12*var(--u));color:var(--lime)}
+.wbody{display:grid;grid-template-columns:1fr 1fr}
+.code{padding:calc(18*var(--u)) calc(16*var(--u));font:calc(13.5*var(--u))/1.8 var(--mono);color:#c9c9d6;border-right:1px solid var(--line);white-space:pre}
+.code .n{color:#3f3f50;display:inline-block;width:calc(22*var(--u))}
+.t{color:#f472b6}.a{color:#5eead4}.s{color:var(--lime)}.c{color:#565670}
+.cur{display:inline-block;width:calc(8*var(--u));height:calc(15*var(--u));background:var(--lime);vertical-align:calc(-2*var(--u))}
+.pv{padding:calc(16*var(--u));display:flex;flex-direction:column;gap:calc(11*var(--u));background:radial-gradient(circle at 70% 0%,rgba(208,251,101,.08),transparent 60%)}
+.b{border-radius:calc(10*var(--u));background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.pnav{height:calc(28*var(--u));display:flex;align-items:center;justify-content:space-between;padding:0 calc(10*var(--u))}
+.bar{display:block;height:calc(6*var(--u));border-radius:3px;background:rgba(255,255,255,.18)}
+.phero{padding:calc(18*var(--u)) calc(14*var(--u));display:flex;flex-direction:column;gap:calc(8*var(--u))}
+.phero .bar{height:calc(10*var(--u))}
+.lime-bg{background:var(--lime)!important}
+.pbtn{width:calc(70*var(--u));height:calc(20*var(--u));border-radius:calc(10*var(--u));background:var(--lime);margin-top:calc(6*var(--u))}
+.pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(8*var(--u))}
+.pcards div{height:calc(70*var(--u));border-radius:calc(8*var(--u));background:rgba(255,255,255,.04);border:1px solid var(--line);position:relative}
+.pcards div::before{content:"";position:absolute;left:calc(9*var(--u));top:calc(9*var(--u));width:calc(18*var(--u));height:calc(18*var(--u));border-radius:calc(5*var(--u));background:var(--lime);opacity:.85}
+.pcards div::after{content:"";position:absolute;left:calc(9*var(--u));right:calc(18*var(--u));bottom:calc(11*var(--u));height:calc(5*var(--u));border-radius:3px;background:rgba(255,255,255,.16)}
+.badge{position:absolute;display:flex;align-items:center;gap:calc(12*var(--u));background:#1a1a24;border:1px solid var(--line-2);border-radius:calc(14*var(--u));padding:calc(12*var(--u)) calc(16*var(--u));box-shadow:0 calc(20*var(--u)) calc(50*var(--u)) calc(-20*var(--u)) rgba(0,0,0,.9);font-size:calc(14*var(--u));white-space:nowrap}
+.badge .ic{width:calc(36*var(--u));height:calc(36*var(--u));border-radius:calc(10*var(--u));background:var(--lime);color:var(--ink);display:grid;place-items:center}
+.badge .ic svg{width:calc(18*var(--u));height:calc(18*var(--u))}
+.badge b{display:block;font-size:calc(15*var(--u))}
+.badge small{color:var(--dim);font-size:calc(13*var(--u))}
+
+/* Portfolio-kaarten */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(18*var(--u))}
+.pcard{border-radius:calc(20*var(--u));background:var(--bg-2);border:1px solid var(--line);overflow:hidden}
+.shot{position:relative;aspect-ratio:1200/630;overflow:hidden;background:#111}
+.shot .blur{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(26px) saturate(1.4) brightness(.55);transform:scale(1.15)}
+.shot img{position:absolute;inset:0;margin:auto;width:100%;height:100%;object-fit:contain}
+.shot img.icon{width:auto;height:66%;border-radius:20%;box-shadow:0 calc(14*var(--u)) calc(30*var(--u)) calc(-10*var(--u)) rgba(0,0,0,.7)}
+.pmeta{padding:calc(12*var(--u)) calc(18*var(--u)) calc(13*var(--u));display:flex;justify-content:space-between;align-items:center;gap:calc(10*var(--u))}
+.pmeta b{font-size:calc(21*var(--u));letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{font:500 calc(12*var(--u)) var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:calc(5*var(--u)) calc(9*var(--u));border-radius:calc(6*var(--u));background:rgba(255,255,255,.06);color:var(--muted);white-space:nowrap}
+.tag.pro{background:rgba(208,251,101,.1);color:var(--lime)}
+
+/* Prijzen */
+.plans{display:flex;flex-direction:column;gap:calc(18*var(--u))}
+.plan{display:grid;grid-template-columns:1fr auto;align-items:center;gap:calc(6*var(--u)) calc(20*var(--u));padding:calc(28*var(--u)) calc(32*var(--u));border-radius:calc(24*var(--u));background:var(--bg-2);border:1px solid var(--line)}
+.plan.hl{background:linear-gradient(180deg,rgba(208,251,101,.09),rgba(208,251,101,.02) 60%,var(--bg-2));border-color:rgba(208,251,101,.35)}
+.plan h3{font-size:calc(30*var(--u));letter-spacing:-.03em;display:flex;align-items:center;gap:calc(12*var(--u))}
+.plan .pb{font:600 calc(12*var(--u)) var(--mono);text-transform:uppercase;letter-spacing:.08em;padding:calc(5*var(--u)) calc(10*var(--u));border-radius:999px;border:1px solid var(--line-2);color:var(--muted)}
+.plan.hl .pb{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.plan p{grid-column:1;color:var(--muted);font-size:calc(18*var(--u));line-height:1.4}
+.price{grid-row:1/3;grid-column:2;text-align:right}
+.feat{grid-column:1/-1;list-style:none;padding:calc(14*var(--u)) 0 0;margin-top:calc(8*var(--u));border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:calc(8*var(--u)) calc(18*var(--u))}
+.feat li{display:flex;align-items:center;gap:calc(7*var(--u));font-size:calc(16*var(--u));color:var(--text)}
+.feat svg{width:calc(15*var(--u));height:calc(15*var(--u));color:var(--lime)}
+.price small{display:block;color:var(--dim);font:calc(14*var(--u)) var(--mono)}
+.price b{font-size:calc(52*var(--u));font-weight:800;letter-spacing:-.05em;line-height:1}
+.price .sfx{color:var(--muted);font-size:calc(20*var(--u));font-weight:600}
+
+.sep{width:1px;align-self:stretch;background:var(--line-2)}
+.center{text-align:center}
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<script>
+const P = new URLSearchParams(location.search);
+const TYPE = P.get("type") || "og";
+const W = +P.get("w") || innerWidth, H = +P.get("h") || innerHeight;
+const D = window.DATA || { packages: [], projects: [], settings: {}, hero: {} };
+const SITE = "../../site/";
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const MARK = (bg = "#d0fb65", fg = "#0a0a0f") => `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="${bg}"/><g fill="${fg}"><rect x="8" y="7" width="4" height="18" rx="1"/><rect x="12" y="7" width="8" height="4" rx="1"/><rect x="20" y="11" width="4" height="4" rx="1"/><rect x="12" y="15" width="8" height="4" rx="1"/></g><rect x="20" y="21" width="4" height="4" rx="1" fill="${fg}" opacity=".35"/></svg>`;
+const LOGO = (size) => `<div class="logo" style="font-size:calc(${size}*var(--u))">${MARK()}<span>Pixel<b>Forges</b></span></div>`;
+const H1 = (size, caret = true) => `<h1 style="font-size:calc(${size}*var(--u))">${esc(D.hero.title1 || "Wij bouwen")}<span class="l2">${esc(D.hero.title2 || "jouw website.")}${caret ? '<span class="caret"></span>' : ""}</span></h1>`;
+const pkg = id => (D.packages || []).find(p => p.id === id) || {};
+const fromPrice = () => { const p = pkg("basis"); return p.price ? `vanaf ${p.price}` : "vanaf €750"; };
+const chips = list => `<div class="chips">${list.map(t => `<span class="chip">${CHECK}${esc(t)}</span>`).join("")}</div>`;
+const STD = () => [fromPrice(), `binnen ${D.settings.deliveryTime || "2 weken"} live`, "SEO & responsive"];
+const WINDOW = (w, url = "jouwbedrijf.nl", sc = 1) => `
+  <div class="window" style="--ww:${w};${sc !== 1 ? `transform:scale(${sc});transform-origin:top left` : ""}">
+    <div class="wbar"><i></i><i></i><i></i><div class="wurl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>${esc(url)}</div></div>
+    <div class="wbody">
+      <div class="code">${[
+        '<span class="c">// smeed een website</span>',
+        '<span class="t">&lt;nav</span> <span class="a">class</span>=<span class="s">"menu"</span><span class="t">/&gt;</span>',
+        '<span class="t">&lt;header&gt;</span>',
+        '  <span class="t">&lt;h1&gt;</span>Welkom!<span class="t">&lt;/h1&gt;</span>',
+        '  <span class="t">&lt;a</span> <span class="a">href</span>=<span class="s">"#contact"</span><span class="t">&gt;</span>',
+        '<span class="t">&lt;/header&gt;</span>',
+        '<span class="t">&lt;section</span> <span class="a">grid</span>=<span class="s">"3"</span><span class="t">&gt;</span>',
+        '<span class="t">&lt;footer</span> <span class="a">seo</span><span class="t">/&gt;</span>',
+        '<span class="c">// klaar ✓ deploy</span><span class="cur"></span>'
+      ].map((l, i) => `<span class="n">${i + 1}</span>${l}`).join("\n")}</div>
+      <div class="pv">
+        <div class="b pnav"><span class="bar lime-bg" style="width:calc(36*var(--u))"></span><span style="display:flex;gap:calc(5*var(--u))"><span class="bar" style="width:calc(16*var(--u))"></span><span class="bar" style="width:calc(16*var(--u))"></span><span class="bar" style="width:calc(16*var(--u))"></span></span></div>
+        <div class="b phero"><span class="bar lime-bg" style="width:72%"></span><span class="bar" style="width:90%"></span><span class="bar" style="width:55%;opacity:.6"></span><span class="pbtn"></span></div>
+        <div class="pcards"><div></div><div></div><div></div></div>
+        <div class="b" style="height:calc(22*var(--u))"></div>
+      </div>
+    </div>
+  </div>`;
+const BADGE = (txt = `Live in ${D.settings.deliveryTime || "2 weken"}`) => `<div class="badge"><span class="ic">${CHECK}</span><span><b>${esc(txt)}</b><small>Responsive · SEO · Snel</small></span></div>`;
+const URL_ = () => `<span class="url">pixelforges.nl</span>`;
+function tokens(n, seed = 7) {
+  const t = ["{ }", "</>", "=>", "&&", "( )", "[ ]", "===", "/*", "*/", "//", "<div>", "flex", "grid", "px", "@media", ":root"];
+  let r = seed, out = "";
+  const rnd = () => (r = (r * 9301 + 49297) % 233280) / 233280;
+  for (let i = 0; i < n; i++) out += `<span class="tok" style="left:${(rnd() * 100).toFixed(1)}%;top:${(rnd() * 100).toFixed(1)}%;font-size:calc(${(14 + rnd() * 16).toFixed(0)}*var(--u))">${esc(t[i % t.length])}</span>`;
+  return out;
+}
+const BG = (gx = "70%", gy = "15%", n = 16) => `<div class="grid" style="--gx:${gx};--gy:${gy}"></div><div class="glow" style="--glx:${gx};--gly:${gy}"></div>${tokens(n)}`;
+function projImgs(n) {
+  const list = (D.projects || []).filter(p => p.image && !/^https?:/.test(p.image));
+  const featured = list.filter(p => p.featured).concat(list.filter(p => !p.featured));
+  return featured.slice(0, n);
+}
+const card = p => `<div class="pcard"><div class="shot"><div class="blur" style="background-image:url('${SITE + p.image}')"></div><img src="${SITE + p.image}" alt="" data-fit></div><div class="pmeta"><b>${esc(p.name)}</b>${(p.tags || []).slice(0, 1).map(t => `<span class="tag${/pro/i.test(t) ? " pro" : ""}">${esc(t)}</span>`).join("")}</div></div>`;
+
+/* ---------- Formaten ---------- */
+const L = {
+  // Open Graph / delen in WhatsApp, LinkedIn, Facebook, iMessage
+  og: () => `${BG("78%", "10%")}
+    <div class="abs" style="left:calc(72*var(--u));top:calc(64*var(--u))">${LOGO(34)}</div>
+    <div class="abs" style="left:calc(72*var(--u));top:calc(176*var(--u));width:calc(600*var(--u))">${H1(78)}<p class="lead" style="margin:calc(26*var(--u)) 0 calc(28*var(--u));max-width:calc(520*var(--u))">Professionele websites voor MKB en ZZP. Snel live, goed vindbaar en zelf bij te houden.</p>${chips([fromPrice(), `${D.settings.deliveryTime || "2 weken"} live`])}</div>
+    <div class="abs" style="left:calc(700*var(--u));top:calc(150*var(--u));transform:rotate(-4deg)">${WINDOW(560)}</div>
+    <div class="abs" style="left:calc(760*var(--u));top:calc(500*var(--u))">${BADGE()}</div>
+    <div class="abs" style="right:calc(64*var(--u));top:calc(72*var(--u))">${URL_()}</div>`,
+
+  // X / Twitter header 1500x500 (profielfoto valt linksonder)
+  "x-header": () => `${BG("70%", "0%")}
+    <div class="abs" style="left:calc(380*var(--u));top:calc(92*var(--u))"><span class="eyebrow"><i></i>Webdesign voor MKB en ZZP</span></div>
+    <div class="abs" style="left:calc(380*var(--u));top:calc(150*var(--u))">${H1(80)}</div>
+    <div class="abs" style="left:calc(380*var(--u));top:calc(330*var(--u))">${chips(STD())}</div>
+    <div class="abs" style="left:calc(1010*var(--u));top:calc(70*var(--u));transform:rotate(-4deg)">${WINDOW(520)}</div>
+    <div class="abs" style="right:calc(48*var(--u));bottom:calc(36*var(--u))">${URL_()}</div>`,
+
+  // LinkedIn bedrijfspagina 1128x191 (logo valt linksonder)
+  "linkedin-banner": () => `${BG("80%", "0%", 8)}
+    <div class="abs" style="left:calc(300*var(--u));top:50%;transform:translateY(-50%)"><h2 style="font-size:calc(38*var(--u));text-transform:uppercase;letter-spacing:-.05em;white-space:nowrap">Wij bouwen <span style="color:var(--lime)">jouw website.</span></h2><div style="margin-top:calc(14*var(--u));display:flex;gap:calc(18*var(--u));align-items:center"><span class="url" style="font-size:calc(15*var(--u))">pixelforges.nl</span><span style="color:var(--muted);font-size:calc(15*var(--u))">${esc(fromPrice())} · binnen ${esc(D.settings.deliveryTime || "2 weken")} live</span></div></div>
+    <div class="abs" style="right:calc(36*var(--u));top:50%;transform:translateY(-50%)"><span class="cta" style="height:calc(48*var(--u));font-size:calc(17*var(--u))">Start je project ${ARROW}</span></div>`,
+
+  // LinkedIn persoonlijke achtergrond 1584x396
+  "linkedin-personal": () => `${BG("78%", "0%")}
+    <div class="abs" style="left:calc(560*var(--u));top:calc(70*var(--u))">${LOGO(30)}</div>
+    <div class="abs" style="left:calc(560*var(--u));top:calc(140*var(--u))">${H1(66, false)}</div>
+    <div class="abs" style="left:calc(560*var(--u));top:calc(300*var(--u))">${chips(STD())}</div>
+    <div class="abs" style="left:calc(1150*var(--u));top:calc(46*var(--u));transform:rotate(-4deg)">${WINDOW(560, "jouwbedrijf.nl", .7)}</div>`,
+
+  // Facebook omslagfoto 1640x624 (mobiel valt rechts/links weg: inhoud in het midden)
+  "facebook-cover": () => `${BG("62%", "8%")}
+    <div class="abs" style="left:calc(290*var(--u));top:calc(118*var(--u))"><div style="--u:1.2px"><span class="eyebrow"><i></i>Webdesign voor MKB en ZZP</span></div></div>
+    <div class="abs" style="left:calc(290*var(--u));top:calc(184*var(--u))">${H1(90)}</div>
+    <div class="abs" style="left:calc(290*var(--u));top:calc(400*var(--u))"><div style="--u:1.25px">${chips(STD())}</div></div>
+    <div class="abs" style="left:calc(1060*var(--u));top:calc(96*var(--u));transform:rotate(-4deg)">${WINDOW(600, "jouwbedrijf.nl", .8)}</div>
+    <div class="abs" style="left:calc(1090*var(--u));top:calc(430*var(--u))"><div style="--u:1.15px">${BADGE()}</div></div>`,
+
+  // Instagram/Facebook post 1080x1080
+  "instagram-post": () => `${BG("80%", "6%")}
+    <div class="abs" style="left:calc(80*var(--u));top:calc(80*var(--u))">${LOGO(36)}</div></div>
+    <div class="abs" style="right:calc(80*var(--u));top:calc(92*var(--u))">${URL_()}</div>
+    <div class="abs" style="left:calc(80*var(--u));top:calc(200*var(--u))">${H1(112)}</div>
+    <div class="abs" style="left:calc(80*var(--u));top:calc(440*var(--u));width:calc(560*var(--u))"><p class="lead" style="font-size:calc(26*var(--u))">Professionele websites voor MKB en ZZP. Snel live, goed vindbaar en zelf bij te houden.</p></div>
+    <div class="abs" style="left:calc(420*var(--u));top:calc(620*var(--u));transform:rotate(-4deg)">${WINDOW(640)}</div>
+    <div class="abs" style="left:calc(80*var(--u));bottom:calc(84*var(--u))"><span class="cta">${esc(fromPrice())} ${ARROW}</span></div>`,
+
+  // Instagram/Facebook story 1080x1920 (bovenste en onderste 250px vrij)
+  "instagram-story": () => `${BG("70%", "18%", 22)}
+    <div class="abs" style="left:calc(90*var(--u));top:calc(280*var(--u))">${LOGO(40)}</div>
+    <div class="abs" style="left:calc(90*var(--u));top:calc(420*var(--u))"><span class="eyebrow" style="font-size:calc(20*var(--u))"><i></i>Webdesign voor MKB en ZZP</span></div>
+    <div class="abs" style="left:calc(90*var(--u));top:calc(510*var(--u))">${H1(116)}</div>
+    <div class="abs" style="left:calc(90*var(--u));top:calc(800*var(--u));width:calc(860*var(--u))"><p class="lead" style="font-size:calc(32*var(--u))">Snel live, goed vindbaar en zelf bij te houden.</p></div>
+    <div class="abs" style="left:calc(130*var(--u));top:calc(960*var(--u));transform:rotate(-4deg)">${WINDOW(820)}</div>
+    <div class="abs" style="left:calc(90*var(--u));top:calc(1500*var(--u))">${chips(STD()).replace(/calc\(40\*var\(--u\)\)/g, "calc(52*var(--u))")}</div>
+    <div class="abs" style="left:calc(90*var(--u));top:calc(1590*var(--u))"><span class="cta" style="height:calc(80*var(--u));font-size:calc(28*var(--u));padding:0 calc(38*var(--u))">Start je project · pixelforges.nl ${ARROW}</span></div>`,
+
+  // Instagram portfolio-post 1080x1350
+  "instagram-portfolio": () => `${BG("80%", "0%", 10)}
+    <div class="abs" style="left:calc(70*var(--u));top:calc(70*var(--u))">${LOGO(30)}</div>
+    <div class="abs" style="right:calc(70*var(--u));top:calc(80*var(--u))">${URL_()}</div>
+    <div class="abs" style="left:calc(70*var(--u));top:calc(150*var(--u))"><h2 style="font-size:calc(64*var(--u))">Recent werk <span class="muted">dat opvalt.</span></h2></div>
+    <div class="abs" style="left:calc(70*var(--u));right:calc(70*var(--u));top:calc(250*var(--u))"><div class="pgrid" style="gap:calc(16*var(--u))">${projImgs(6).map(card).join("")}</div></div>
+    <div class="abs" style="left:calc(70*var(--u));bottom:calc(64*var(--u))"><span class="cta" style="height:calc(56*var(--u));font-size:calc(19*var(--u))">${(D.projects || []).length}+ projecten live ${ARROW}</span></div>`,
+
+  // Instagram prijzen-post 1080x1350
+  "instagram-pricing": () => `${BG("82%", "4%", 10)}
+    <div class="abs" style="left:calc(70*var(--u));top:calc(70*var(--u))">${LOGO(30)}</div>
+    <div class="abs" style="right:calc(70*var(--u));top:calc(80*var(--u))">${URL_()}</div>
+    <div class="abs" style="left:calc(70*var(--u));top:calc(160*var(--u));right:calc(70*var(--u))"><h2 style="font-size:calc(70*var(--u))">Transparante prijzen, <span class="muted">geen verrassingen.</span></h2></div>
+    <div class="abs" style="left:calc(70*var(--u));right:calc(70*var(--u));top:calc(350*var(--u))"><div class="plans" style="--u:1.22px">${(D.packages || []).map(p => `
+      <div class="plan${p.highlight ? " hl" : ""}"><h3>${esc(p.name)}${p.badge ? `<span class="pb">${esc(p.badge)}</span>` : ""}</h3><p>${esc(p.description)}</p><ul class="feat">${(p.features || []).slice(0, 4).map(f => `<li>${CHECK}${esc(f)}</li>`).join("")}</ul>
+      <div class="price">${p.prefix ? `<small>${esc(p.prefix)}</small>` : "<small>&nbsp;</small>"}<b>${esc(p.price)}</b>${p.suffix ? `<span class="sfx">${esc(p.suffix)}</span>` : ""}<small>${esc(p.note)}</small></div></div>`).join("")}</div></div>
+    <div class="abs" style="left:calc(70*var(--u));bottom:calc(70*var(--u))"><span class="cta" style="height:calc(56*var(--u));font-size:calc(19*var(--u))">Offerte binnen ${esc(D.settings.responseTime || "24u")} ${ARROW}</span></div>`,
+
+  // Profielfoto 1080x1080 (wordt rond bijgesneden)
+  "profile-lime": () => `<div style="position:absolute;inset:0;background:var(--lime);display:grid;place-items:center"><svg viewBox="8 7 16 18" style="width:46%;height:46%"><g fill="#0a0a0f"><rect x="8" y="7" width="4" height="18" rx="1"/><rect x="12" y="7" width="8" height="4" rx="1"/><rect x="20" y="11" width="4" height="4" rx="1"/><rect x="12" y="15" width="8" height="4" rx="1"/></g><rect x="20" y="21" width="4" height="4" rx="1" fill="#0a0a0f" opacity=".35"/></svg></div>`,
+  "profile-dark": () => `${BG("50%", "40%", 0)}<div style="position:absolute;inset:0;display:grid;place-items:center"><svg viewBox="8 7 16 18" style="width:46%;height:46%"><g fill="#d0fb65"><rect x="8" y="7" width="4" height="18" rx="1"/><rect x="12" y="7" width="8" height="4" rx="1"/><rect x="20" y="11" width="4" height="4" rx="1"/><rect x="12" y="15" width="8" height="4" rx="1"/></g><rect x="20" y="21" width="4" height="4" rx="1" fill="#d0fb65" opacity=".35"/></svg></div>`,
+
+  // Webbanners (advertenties / partners)
+  "web-728x90": () => `${BG("85%", "0%", 0)}
+    <div class="abs" style="left:calc(22*var(--u));top:50%;transform:translateY(-50%)">${LOGO(22)}</div>
+    <div class="abs" style="left:calc(200*var(--u));top:50%;transform:translateY(-50%)"><div style="font-weight:800;font-size:calc(20*var(--u));letter-spacing:-.04em;text-transform:uppercase;white-space:nowrap">Wij bouwen <span style="color:var(--lime)">jouw website.</span></div><div style="color:var(--muted);font-size:calc(13*var(--u));margin-top:calc(4*var(--u))">${esc(fromPrice())} · binnen ${esc(D.settings.deliveryTime || "2 weken")} live</div></div>
+    <div class="abs" style="right:calc(16*var(--u));top:50%;transform:translateY(-50%)"><span class="cta" style="height:calc(42*var(--u));font-size:calc(14*var(--u));padding:0 calc(16*var(--u))">Start je project ${ARROW}</span></div>`,
+  "web-970x250": () => `${BG("78%", "0%", 8)}
+    <div class="abs" style="left:calc(48*var(--u));top:calc(40*var(--u))">${LOGO(24)}</div>
+    <div class="abs" style="left:calc(48*var(--u));top:calc(84*var(--u))">${H1(54)}</div>
+    <div class="abs" style="left:calc(48*var(--u));bottom:calc(34*var(--u))"><span style="color:var(--muted);font-size:calc(16*var(--u))">${esc(fromPrice())} · binnen ${esc(D.settings.deliveryTime || "2 weken")} live · pixelforges.nl</span></div>
+    <div class="abs" style="left:calc(560*var(--u));top:calc(34*var(--u));transform:rotate(-4deg)">${WINDOW(620, "jouwbedrijf.nl", .58)}</div>`,
+  "web-300x250": () => `${BG("70%", "0%", 6)}
+    <div class="abs" style="left:calc(22*var(--u));top:calc(22*var(--u))">${LOGO(18)}</div>
+    <div class="abs" style="left:calc(22*var(--u));top:calc(64*var(--u))">${H1(31)}</div>
+    <div class="abs" style="left:calc(22*var(--u));top:calc(136*var(--u))"><span style="color:var(--muted);font-size:calc(13*var(--u))">MKB en ZZP · ${esc(fromPrice())}</span></div>
+    <div class="abs" style="left:calc(22*var(--u));bottom:calc(22*var(--u))"><span class="cta" style="height:calc(40*var(--u));font-size:calc(14*var(--u));padding:0 calc(16*var(--u))">Start je project ${ARROW}</span></div>`,
+  "web-160x600": () => `${BG("50%", "0%", 8)}
+    <div class="abs" style="left:calc(16*var(--u));top:calc(24*var(--u))">${LOGO(16)}</div>
+    <div class="abs" style="left:calc(16*var(--u));top:calc(90*var(--u));right:calc(10*var(--u))">${H1(30, false).replace('<h1 style="', '<h1 style="white-space:normal;')}</div>
+    <div class="abs" style="left:calc(16*var(--u));top:calc(240*var(--u));right:calc(16*var(--u))"><p style="color:var(--muted);font-size:calc(14*var(--u));line-height:1.45">Professionele websites voor MKB en ZZP.</p><p style="color:var(--text);font-weight:700;font-size:calc(22*var(--u));margin-top:calc(18*var(--u))">${esc(fromPrice())}</p><p style="color:var(--muted);font-size:calc(13*var(--u))">binnen ${esc(D.settings.deliveryTime || "2 weken")} live</p></div>
+    <div class="abs" style="left:calc(16*var(--u));right:calc(16*var(--u));bottom:calc(24*var(--u))"><span class="cta" style="width:100%;justify-content:center;height:calc(44*var(--u));font-size:calc(14*var(--u));padding:0">Start ${ARROW}</span></div>`,
+
+  // Presentatie / beeldscherm 1920x1080
+  "presentation-1920x1080": () => `${BG("74%", "10%", 22)}
+    <div class="abs" style="left:calc(140*var(--u));top:calc(110*var(--u))">${LOGO(40)}</div>
+    <div class="abs" style="right:calc(140*var(--u));top:calc(124*var(--u))">${URL_().replace("var(--u))/1", "var(--u))/1")}</div>
+    <div class="abs" style="left:calc(140*var(--u));top:calc(290*var(--u))"><span class="eyebrow" style="font-size:calc(19*var(--u))"><i></i>Webdesign voor MKB en ZZP</span></div>
+    <div class="abs" style="left:calc(140*var(--u));top:calc(370*var(--u))">${H1(116)}</div>
+    <div class="abs" style="left:calc(140*var(--u));top:calc(650*var(--u));width:calc(820*var(--u))"><p class="lead" style="font-size:calc(34*var(--u))">Professionele websites voor MKB en ZZP. Geen gedoe, wel resultaat.</p></div>
+    <div class="abs" style="left:calc(140*var(--u));top:calc(820*var(--u))"><div style="--u:1.45px">${chips(STD())}</div></div>
+    <div class="abs" style="left:calc(1130*var(--u));top:calc(300*var(--u));transform:rotate(-4deg)">${WINDOW(720, "jouwbedrijf.nl", .92)}</div>
+    <div class="abs" style="left:calc(1180*var(--u));top:calc(700*var(--u))"><div style="--u:1.35px">${BADGE()}</div></div>`,
+
+  // E-mailhandtekening 600x150
+  "email-signature": () => `${BG("85%", "0%", 0)}
+    <div class="abs" style="left:calc(24*var(--u));top:calc(26*var(--u))">${LOGO(22)}</div></div>
+    <div class="abs" style="left:calc(24*var(--u));top:calc(68*var(--u))"><div style="font-weight:800;font-size:calc(22*var(--u));letter-spacing:-.04em;text-transform:uppercase">Wij bouwen <span style="color:var(--lime)">jouw website.</span></div><div style="color:var(--muted);font-size:calc(13*var(--u));margin-top:calc(6*var(--u))">${esc(D.settings.email || "hallo@pixelforges.nl")} · pixelforges.nl</div></div>
+    <div class="abs" style="right:calc(24*var(--u));top:50%;transform:translateY(-50%)"><span class="cta" style="height:calc(40*var(--u));font-size:calc(14*var(--u));padding:0 calc(16*var(--u))">${esc(fromPrice())} ${ARROW}</span></div>`,
+
+  // Logo's
+  "logo-dark": () => `<div style="position:absolute;inset:0;display:grid;place-items:center">${LOGO(120)}</div>`,
+  "logo-light": () => `<div style="position:absolute;inset:0;display:grid;place-items:center;color:#0a0a0f">${LOGO(120).replace("<b>Forges</b>", '<b style="color:#0a0a0f">Forges</b>')}</div>`,
+};
+
+// Schaal: elk formaat is ontworpen op zijn eigen pixelmaat; --u = 1px
+document.documentElement.style.setProperty("--u", (P.get("scale") || 1) + "px");
+const stage = document.getElementById("stage");
+if (P.get("transparent")) { document.body.style.background = "transparent"; stage.style.background = "transparent"; }
+stage.innerHTML = (L[TYPE] || L.og)();
+// Portfolio-afbeeldingen: brede vullen, vierkante als icoon
+document.querySelectorAll("img[data-fit]").forEach(img => {
+  const fit = () => { const r = img.naturalWidth / img.naturalHeight; if (r && r < 1.3) img.classList.add("icon"); };
+  img.complete ? fit() : img.addEventListener("load", fit);
+});
+window.__ready = Promise.all([document.fonts.ready, ...[...document.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; }))]);
+</script>
+</body>
+</html>

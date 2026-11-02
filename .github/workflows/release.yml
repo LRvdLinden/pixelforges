@@ -169,14 +169,19 @@ jobs:
           EOF
           sed -i 's/^          //' build/.htaccess
 
-          cat > build/robots.txt <<EOF
-          User-agent: *
-          Disallow: /beheer.html
-          Sitemap: ${SITE_URL}/sitemap.xml
-          EOF
-          sed -i 's/^          //' build/robots.txt
-          TODAY=$(date -u +%Y-%m-%d)
-          printf '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>%s/</loc><lastmod>%s</lastmod><priority>1.0</priority></url>\n  <url><loc>%s/privacy</loc><lastmod>%s</lastmod><priority>0.3</priority></url>\n</urlset>\n' "$SITE_URL" "$TODAY" "$SITE_URL" "$TODAY" > build/sitemap.xml
+      - name: SEO – inhoud vooraf in de HTML, sitemap en robots.txt
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check playwright
+          python3 -m playwright install --with-deps chromium >/dev/null
+          python3 .github/scripts/prerender.py build "$SITE_URL"
+          # Controle: structured data moet geldige JSON zijn
+          python3 - <<'PY'
+          import json, re
+          s = open("build/index.html", encoding="utf-8").read()
+          blocks = re.findall(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', s, re.S)
+          for b in blocks: json.loads(b)
+          print(len(blocks), "structured-data-blokken geldig")
+          PY
 
       - name: Zet live via FTP
         if: steps.secrets.outputs.deploy == 'true'

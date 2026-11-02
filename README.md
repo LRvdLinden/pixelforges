@@ -50,3 +50,29 @@ Handmatig opnieuw uitrollen: **Actions → Release site → Run workflow**.
 2. Laat het domein `pixelforges.nl` (A-record en `www`) naar je eigen hosting wijzen in plaats van Base44.
 3. Zorg dat er een SSL-certificaat is (bijv. AutoSSL in cPanel). De site stuurt alles naar `https://` zonder `www`.
 4. Test het contactformulier: het gebruikt de PHP-mailfunctie van je hosting en mailt vanaf `noreply@pixelforges.nl`.
+
+## SEO
+
+Bij elke deploy draait `.github/scripts/prerender.py`:
+
+- zet pakketten, portfolio, vragen en andere teksten uit `content.json` vooraf in `index.html`, zodat zoekmachines en deelvoorbeelden alles direct zien;
+- maakt de structured data (organisatie, dienst met prijzen, portfolio, veelgestelde vragen) uit `content.json`;
+- maakt `sitemap.xml` (met afbeeldingen) en `robots.txt`.
+
+Na een wijziging via beheer worden deze bestanden bij de volgende deploy automatisch bijgewerkt.
+
+## Huisstijl, banners en social afbeeldingen
+
+`brand/` bevat alle beeldmateriaal:
+
+- `brand/export/` – OG-afbeelding, social banners (X, LinkedIn, Facebook, Instagram), webbanners, presentatie, e-mailhandtekening en logo's
+- `brand/pixelforges-brand.zip` – hetzelfde als één zip
+- `brand/templates/banner.html` – het ontwerp van alle formaten
+- `brand/render.py` – maakt alles opnieuw, ook `site/og.png`, `favicon.ico` en de app-iconen
+
+Opnieuw maken na een prijs- of portfoliowijziging:
+
+```
+pip install playwright pillow && python -m playwright install chromium
+python brand/render.py --zip
+```

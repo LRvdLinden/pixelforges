@@ -1,0 +1,17 @@
+PixelForges · banners en social afbeeldingen
+=============================================
+
+og/        Deelafbeelding voor de website (WhatsApp, LinkedIn, Facebook, iMessage). Staat ook live als pixelforges.nl/og.png.
+social/    X-header, LinkedIn (bedrijf en persoonlijk), Facebook-omslag, Instagram post/story/portfolio/prijzen, profielfoto's.
+web/       Advertentiebanners (728x90, 970x250, 300x250, 160x600), presentatie 1920x1080, e-mailhandtekening 600x150.
+logo/      Logo voor donkere en lichte achtergrond (transparant), beeldmerk als SVG en PNG.
+*/2x/      Dubbele resolutie voor scherpe weergave op retina-schermen.
+
+Tips
+- X: de profielfoto valt linksonder over de header; daar staat bewust niets belangrijks.
+- LinkedIn bedrijfspagina: het logo valt links over de banner; de tekst begint daarom rechts daarvan.
+- Facebook: op mobiel vallen de zijkanten weg; de inhoud staat in het midden.
+- Instagram story: bovenste en onderste 250 px zijn vrij voor de app-knoppen.
+- Profielfoto's worden rond bijgesneden; het beeldmerk staat ruim in het midden.
+
+Opnieuw maken (na wijzigingen in prijzen of portfolio): python brand/render.py --zip

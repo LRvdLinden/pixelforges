@@ -3,30 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>PixelForges · Wij bouwen jouw website</title>
-<meta name="description" content="Professionele websites voor MKB en ZZP. Modern, snel en betaalbaar webdesign vanaf €750. Binnen 2 weken live, SEO-geoptimaliseerd en responsive.">
+<title>Website laten maken vanaf €750 · PixelForges Apeldoorn</title>
+<meta name="description" content="Website laten maken voor je MKB- of ZZP-bedrijf? PixelForges bouwt snelle, goed vindbare websites vanaf €750, binnen 2 weken live en zelf bij te houden.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="generator" content="pixelforges-site">
+<meta name="author" content="PixelForges">
 <link rel="canonical" href="https://pixelforges.nl/">
+<link rel="alternate" hreflang="nl-NL" href="https://pixelforges.nl/">
+<link rel="alternate" hreflang="x-default" href="https://pixelforges.nl/">
 <meta name="theme-color" content="#0a0a0f">
 <meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no">
+<meta name="geo.region" content="NL-GE">
+<meta name="geo.placename" content="Apeldoorn">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PixelForges">
-<meta property="og:title" content="PixelForges · Wij bouwen jouw website">
-<meta property="og:description" content="Professionele websites voor MKB en ZZP. Binnen 2 weken live, vanaf €750.">
-<meta property="og:url" content="https://pixelforges.nl/">
-<meta property="og:image" content="https://pixelforges.nl/og.png">
 <meta property="og:locale" content="nl_NL">
+<meta property="og:url" content="https://pixelforges.nl/">
+<meta property="og:title" content="PixelForges · Wij bouwen jouw website">
+<meta property="og:description" content="Professionele websites voor MKB en ZZP. Snel live, goed vindbaar en zelf bij te houden. Vanaf €750, binnen 2 weken online.">
+<meta property="og:image" content="https://pixelforges.nl/og.png">
+<meta property="og:image:secure_url" content="https://pixelforges.nl/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PixelForges: Wij bouwen jouw website. Vanaf €750, binnen 2 weken live.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PixelForges · Wij bouwen jouw website">
+<meta name="twitter:description" content="Professionele websites voor MKB en ZZP. Vanaf €750, binnen 2 weken live.">
 <meta name="twitter:image" content="https://pixelforges.nl/og.png">
+<meta name="twitter:image:alt" content="PixelForges: Wij bouwen jouw website. Vanaf €750, binnen 2 weken live.">
+<link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"PixelForges","url":"https://pixelforges.nl/","image":"https://pixelforges.nl/og.png","logo":"https://pixelforges.nl/apple-touch-icon.png","email":"hallo@pixelforges.nl","description":"Professionele websites voor MKB en ZZP.","areaServed":"NL","address":{"@type":"PostalAddress","addressLocality":"Apeldoorn","addressCountry":"NL"},"priceRange":"€€","sameAs":["https://facebook.com/PixelForgesNL","https://instagram.com/PixelForgesNL"]}
+<script type="application/ld+json" id="ld-site">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Organization","@id":"https://pixelforges.nl/#org","name":"PixelForges","url":"https://pixelforges.nl/","logo":{"@type":"ImageObject","url":"https://pixelforges.nl/icon-512.png","width":512,"height":512},"email":"hallo@pixelforges.nl","sameAs":["https://facebook.com/PixelForgesNL","https://instagram.com/PixelForgesNL"]},
+ {"@type":"WebSite","@id":"https://pixelforges.nl/#website","url":"https://pixelforges.nl/","name":"PixelForges","inLanguage":"nl-NL","publisher":{"@id":"https://pixelforges.nl/#org"}},
+ {"@type":"ProfessionalService","@id":"https://pixelforges.nl/#service","name":"PixelForges","url":"https://pixelforges.nl/","image":"https://pixelforges.nl/og.png","email":"hallo@pixelforges.nl","description":"Professionele websites voor MKB en ZZP.","priceRange":"€€","areaServed":{"@type":"Country","name":"Nederland"},"address":{"@type":"PostalAddress","addressLocality":"Apeldoorn","addressCountry":"NL"},"parentOrganization":{"@id":"https://pixelforges.nl/#org"}}
+]}
 </script>
+<noscript><style>.rv{opacity:1!important;transform:none!important}</style></noscript>
 <style>
 :root{
   --bg:#0a0a0f; --bg-2:#0d0d14; --surface:#12121b; --surface-2:#1a1a24;
@@ -742,7 +763,7 @@ function render(C) {
 
   // FAQ + structured data
   $("#faqList").innerHTML = (C.faq || []).map((f, i) => `<details${i === 0 ? " open" : ""}><summary>${esc(f.q)}<span class="pm" aria-hidden="true"></span></summary><p>${esc(f.a)}</p></details>`).join("");
-  if ((C.faq || []).length) { const ld = document.createElement("script"); ld.type = "application/ld+json"; ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: C.faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }); document.head.appendChild(ld); }
+  if ((C.faq || []).length && !document.getElementById("ld-faq")) { const ld = document.createElement("script"); ld.type = "application/ld+json"; ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: C.faq.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }); document.head.appendChild(ld); }
 
   // Contact + footer
   const items = [];

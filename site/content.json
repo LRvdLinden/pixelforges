@@ -98,6 +98,50 @@
     ],
     "projects": [
         {
+            "id": "weekdot",
+            "name": "Weekdot",
+            "url": "https://weekdot.com",
+            "image": "img/weekdot-mvz5da0r.jpg",
+            "tags": [
+                "Website"
+            ],
+            "description": "Weekdot is a free calendar app for iPhone, iPad, Mac and Apple Watch. See your whole week at a glance, with day, month, year and list views, widgets, watch complications and rich alerts. Works with iCloud, Google, Outlo…",
+            "featured": true
+        },
+        {
+            "id": "pasr",
+            "name": "Pasr",
+            "url": "https://pasr.nl",
+            "image": "img/pasr-mvz5d0p9.jpg",
+            "tags": [
+                "Website"
+            ],
+            "description": "Klantenkaarten en cadeaukaarten op iPhone, iPad en Apple Watch. Gratis en zonder reclame.",
+            "featured": true
+        },
+        {
+            "id": "tunr",
+            "name": "Tunr",
+            "url": "https://tunr.online",
+            "image": "img/tunr-mvz5cq3u.jpg",
+            "tags": [
+                "Website"
+            ],
+            "description": "Online radio luisteren, gratis: 50.000+ radiozenders uit 200+ landen en podcasts. Gratis radio-app voor iPhone, iPad, Mac, Apple TV, Apple Watch, CarPlay, Android, Android Auto en Windows.",
+            "featured": true
+        },
+        {
+            "id": "bingr",
+            "name": "Bingr",
+            "url": "https://bingr.online",
+            "image": "img/bingr-mvz5cd2i.jpg",
+            "tags": [
+                "Website Pro"
+            ],
+            "description": "Speel je eigen IPTV-abonnement af op iPhone, iPad, Apple TV, Mac, Android, Windows en in je browser. Bingr levert zelf geen zenders, films of series.",
+            "featured": true
+        },
+        {
             "id": "lrvdlinden-apps",
             "name": "LRvdLinden Apps",
             "url": "https://lrvdlinden.app",

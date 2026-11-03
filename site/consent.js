@@ -6,7 +6,7 @@
   "use strict";
   var KEY = "pf_consent", MAX = 365 * 24 * 3600, MAX_MS = MAX * 1000;
   var FONTS = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap";
-  var PRIVACY = /privacy/.test(location.pathname) ? "#cookies" : "privacy.html#cookies";
+  var PRIVACY = /privacy/.test(location.pathname) ? "#cookies" : "/privacy#cookies";
   var T = {
     title: "Cookies en privacy",
     text: "PixelForges gebruikt alleen opslag die nodig is om deze keuze te onthouden. Met je toestemming laden we ook de lettertypes Inter en JetBrains Mono van Google Fonts; daarbij ziet Google je IP-adres. Geen advertenties, geen tracking.",

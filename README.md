@@ -6,7 +6,7 @@ Website van PixelForges: professionele websites voor MKB en ZZP.
 
 - `site/` – alles wat online komt
   - `index.html` – de site
-  - `privacy.html` – privacyverklaring (ook bereikbaar als `/privacy`)
+  - `privacy.html` – privacyverklaring, bereikbaar als `/privacy` (adressen tonen nooit `.html`; oude links met `.html` sturen door)
   - `content.json` – alle teksten, pakketten, portfolio, reviews en vragen
   - `beheer.html` – beheerpagina om `content.json` te bewerken (achter wachtwoord)
   - `publish.php` – Publiceren-knop: zet wijzigingen live en commit ze naar deze repo

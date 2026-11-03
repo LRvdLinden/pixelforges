@@ -159,7 +159,7 @@ def sitemap(C: dict):
     (BUILD / "sitemap.xml").write_text(xml, encoding="utf-8")
     (BUILD / "robots.txt").write_text(f"""User-agent: *
 Allow: /
-Disallow: /beheer.html
+Disallow: /beheer
 Disallow: /publish.php
 Disallow: /fetch-meta.php
 Disallow: /contact.php

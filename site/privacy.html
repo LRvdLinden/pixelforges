@@ -23,9 +23,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="site.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="consent.js" defer></script>
 <style>
 :root{--bg:#0a0a0f;--line:rgba(255,255,255,.08);--text:#f5f5f7;--muted:#9ca3af;--dim:#6b7280;--lime:#d0fb65;--mono:"JetBrains Mono",ui-monospace,monospace}
 *{box-sizing:border-box}
@@ -47,6 +45,7 @@ ul{padding-left:20px}
 li::marker{color:var(--lime)}
 a{color:var(--lime)}
 strong{color:var(--text);font-weight:600}
+code{font-family:var(--mono);font-size:.9em;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:5px;color:var(--text)}
 footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);color:var(--dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </style>
 </head>
@@ -55,7 +54,7 @@ footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);colo
 <header><a href="./" class="logo">Pixel<b>Forges</b></a><a href="./" class="back">← Terug naar home</a></header>
 <main>
 <h1>Privacy&shy;verklaring</h1>
-<div class="date">Laatst bijgewerkt: 24 oktober 2026</div>
+<div class="date">Laatst bijgewerkt: 3 november 2026</div>
 
 <h2><span>01</span>Inleiding</h2>
 <p>PixelForges, gevestigd in Nederland, is verantwoordelijk voor de verwerking van persoonsgegevens zoals weergegeven in deze privacyverklaring. Wij respecteren de privacy van alle gebruikers van onze website en dragen er zorg voor dat de persoonlijke informatie die u ons verschaft vertrouwelijk wordt behandeld.</p>
@@ -88,8 +87,13 @@ footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);colo
 <h2><span>05</span>Delen met derden</h2>
 <p>PixelForges verkoopt uw gegevens niet aan derden en zal deze uitsluitend verstrekken indien dit nodig is voor de uitvoering van onze overeenkomst met u of om te voldoen aan een wettelijke verplichting. Met bedrijven die uw gegevens verwerken in onze opdracht, sluiten wij een verwerkersovereenkomst om te zorgen voor eenzelfde niveau van beveiliging en vertrouwelijkheid van uw gegevens.</p>
 
-<h2><span>06</span>Cookies</h2>
-<p>PixelForges gebruikt functionele en analytische cookies. Een cookie is een klein tekstbestand dat bij het eerste bezoek aan deze website wordt opgeslagen in de browser van uw computer, tablet of smartphone. De cookies die wij gebruiken zijn noodzakelijk voor de technische werking van de website en uw gebruiksgemak. U kunt zich afmelden voor cookies door uw internetbrowser zo in te stellen dat deze geen cookies meer opslaat.</p>
+<h2 id="cookies"><span>06</span>Cookies</h2>
+<p>Een cookie is een klein tekstbestand dat in de browser van uw computer, tablet of smartphone wordt opgeslagen. PixelForges gebruikt geen advertentie- of trackingcookies.</p>
+<ul>
+<li><strong>Noodzakelijk (altijd aan):</strong> de cookie <code>pf_consent</code> en dezelfde waarde in de lokale opslag van uw browser onthouden uw cookiekeuze. Bewaartermijn: 12 maanden.</li>
+<li><strong>Lettertypes van Google Fonts (alleen met toestemming):</strong> pas als u op <em>Accepteren</em> klikt, laden we de lettertypes Inter en JetBrains Mono van Google. Daarbij ziet Google uw IP-adres. Kiest u <em>Alleen noodzakelijk</em>, dan gebruikt de website de standaardletters van uw apparaat.</li>
+</ul>
+<p>U kunt uw keuze altijd wijzigen via het ronde cookieknopje linksonder op de website of hier: <a href="#cookies" data-consent-open>cookie-instellingen openen</a>.</p>
 
 <h2><span>07</span>Uw rechten (AVG)</h2>
 <p>Op grond van de Algemene Verordening Gegevensbescherming (AVG) heeft u de volgende rechten:</p>
@@ -109,7 +113,7 @@ footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);colo
 <h2><span>09</span>Klachten</h2>
 <p>Mocht u een klacht hebben over de verwerking van uw persoonsgegevens, dan vragen wij u hierover direct contact met ons op te nemen. U heeft altijd het recht een klacht in te dienen bij de Autoriteit Persoonsgegevens, de toezichthoudende autoriteit op het gebied van privacybescherming.</p>
 </main>
-<footer><span>© <span id="y">2026</span> PixelForges</span><a href="./">pixelforges.nl</a></footer>
+<footer><span>© <span id="y">2026</span> PixelForges</span><span style="display:flex;gap:18px"><a href="#cookies" data-consent-open>Cookie-instellingen</a><a href="./">pixelforges.nl</a></span></footer>
 </div>
 <script>document.getElementById("y").textContent=new Date().getFullYear()</script>
 </body>

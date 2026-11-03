@@ -37,9 +37,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="consent.js" defer></script>
 <script type="application/ld+json" id="ld-site">
 {"@context":"https://schema.org","@graph":[
  {"@type":"Organization","@id":"https://pixelforges.nl/#org","name":"PixelForges","url":"https://pixelforges.nl/","logo":{"@type":"ImageObject","url":"https://pixelforges.nl/icon-512.png","width":512,"height":512},"email":"hallo@pixelforges.nl","sameAs":["https://facebook.com/PixelForgesNL","https://instagram.com/PixelForgesNL"]},
@@ -589,7 +587,7 @@ footer{padding:80px 0 40px;margin-top:40px}
       </div>
       <div><h4>Navigatie</h4><ul><li><a href="#werkwijze">Werkwijze</a></li><li><a href="#aanbod">Aanbod</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#over">Over ons</a></li></ul></div>
       <div><h4>Contact</h4><ul id="footContact"></ul></div>
-      <div><h4>Legal</h4><ul id="footLegal"><li><a href="privacy.html">Privacyverklaring</a></li></ul></div>
+      <div><h4>Legal</h4><ul id="footLegal"><li><a href="privacy.html">Privacyverklaring</a></li><li><a href="privacy.html#cookies" data-consent-open>Cookie-instellingen</a></li></ul></div>
     </div>
     <div class="foot-bottom"><span>© <span id="year">2026</span> PixelForges<span id="kvk"></span></span><span>Gesmeed met <span class="heart">♥</span> in <span data-c="settings.city">Apeldoorn</span></span></div>
   </div>
@@ -775,7 +773,7 @@ function render(C) {
   $("#socials").innerHTML = ["facebook", "instagram", "linkedin"].filter(k => S[k]).map(k => `<a href="${esc(safeUrl(S[k]))}" target="_blank" rel="noopener" aria-label="PixelForges op ${k}">${ICON[k]}</a>`).join("");
   if (S.termsUrl) $("#footLegal").insertAdjacentHTML("beforeend", `<li><a href="${esc(safeUrl(S.termsUrl))}">Algemene voorwaarden</a></li>`);
   if (S.kvk) $("#kvk").textContent = " · KvK " + S.kvk;
-  if (S.cookieyesId && /^[a-z0-9]+$/i.test(S.cookieyesId)) { const s = document.createElement("script"); s.id = "cookieyes"; s.src = `https://cdn-cookieyes.com/client_data/${S.cookieyesId}/script.js`; document.head.appendChild(s); }
+  if (S.cookieyesId && /^[a-z0-9]+$/i.test(S.cookieyesId)) { window.PixelConsent?.disable(); const s = document.createElement("script"); s.id = "cookieyes"; s.src = `https://cdn-cookieyes.com/client_data/${S.cookieyesId}/script.js`; document.head.appendChild(s); }
 
   observe();
   const tl = $("#timeline"); new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { tl.style.setProperty("--p", 1); o.disconnect(); } }), { threshold: 1 }).observe(tl);

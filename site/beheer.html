@@ -150,7 +150,7 @@ const SCHEMA = {
       ["paragraphs", "Tekst", "paras", { full: true, hint: "Witregel = nieuwe alinea" }]
     ]},
     { title: "Cookies", path: "settings", fields: [
-      ["cookieyesId", "CookieYes-ID", "text", { full: true, hint: "Alleen het ID uit je CookieYes-script (…/client_data/<b>ID</b>/script.js). Leeg = geen banner." }]
+      ["cookieyesId", "CookieYes-ID", "text", { full: true, hint: "Alleen het ID uit je CookieYes-script (…/client_data/<b>ID</b>/script.js). Leeg = de eigen cookiemelding van de site (zoals op weekdot.com)." }]
     ]}
   ]},
   packages: { label: "Pakketten", path: "packages", title: x => x.name, subtitle: x => [x.prefix, x.price, x.suffix].filter(Boolean).join(" "),

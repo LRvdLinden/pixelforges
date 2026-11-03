@@ -98,6 +98,17 @@
     ],
     "projects": [
         {
+            "id": "liftr",
+            "name": "Liftr",
+            "url": "https://liftr.nu",
+            "image": "img/liftr-mw10z4sg.webp",
+            "tags": [
+                "Website"
+            ],
+            "description": "Houd elke training bij: oefeningen, sets, herhalingen en gewicht. Met rusttimer, voortgangsgrafieken, sportschoolpas en Apple Gezondheid.",
+            "featured": true
+        },
+        {
             "id": "weekdot",
             "name": "Weekdot",
             "url": "https://weekdot.com",

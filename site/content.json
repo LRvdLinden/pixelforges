@@ -172,7 +172,7 @@
                 "Website Pro"
             ],
             "description": "Gepersonaliseerde shirt-sleutelhangers van jouw favoriete land: jouw naam, jouw nummer.",
-            "featured": true
+            "featured": false
         },
         {
             "id": "onsoranje",
@@ -183,7 +183,7 @@
                 "Website"
             ],
             "description": "Volg Oranje tijdens het WK 2026 met wedstrijden, uitslagen, standen en live updates van het Nederlands elftal.",
-            "featured": true
+            "featured": false
         },
         {
             "id": "p2000-apeldoorn",
@@ -194,17 +194,6 @@
                 "Website Pro"
             ],
             "description": "Meldingen van brandweer, ambulance en politie in bijna real time: waar, wat en hoe urgent, in en rond Apeldoorn.",
-            "featured": true
-        },
-        {
-            "id": "112heli",
-            "name": "112 HELI",
-            "url": "https://112heli.nl",
-            "image": "img/112heli.webp",
-            "tags": [
-                "Website Pro"
-            ],
-            "description": "Volg live de positie van Lifeliner- en politiehelikopters in Nederland op een interactieve kaart.",
             "featured": true
         },
         {
@@ -228,7 +217,7 @@
                 "Website Pro"
             ],
             "description": "Gratis tool voor dronepiloten met gedetailleerd inzicht in wind- en weersomstandigheden, zodat je veilig kunt vliegen.",
-            "featured": true
+            "featured": false
         },
         {
             "id": "vlagdagen",
@@ -310,6 +299,17 @@
             ],
             "description": "Een collectief van professionals met een passie voor alle vormen van content.",
             "featured": false
+        },
+        {
+            "id": "nieuw-project",
+            "name": "Bekendr",
+            "url": "https://bekendr.lrvdlinden.app/",
+            "image": "img/nieuw-project-mwc4hsxd.webp",
+            "tags": [
+                "Website + iOS + Android"
+            ],
+            "description": "Zie meteen welke vergunningen, verkeersbesluiten, kap en evenementen er rond je adres worden bekendgemaakt. Zonder account, rechtstreeks van de overheid.",
+            "featured": true
         }
     ],
     "reviews": [

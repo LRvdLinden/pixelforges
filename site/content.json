@@ -98,6 +98,28 @@
     ],
     "projects": [
         {
+            "id": "lrvdlinden-apps",
+            "name": "LRvdLinden Apps",
+            "url": "https://lrvdlinden.app",
+            "image": "img/lrvdlinden-apps-mw0det6j.webp",
+            "tags": [
+                "Website"
+            ],
+            "description": "iOS- en Homey-apps gemaakt door Léon van der Linden.",
+            "featured": true
+        },
+        {
+            "id": "bingr",
+            "name": "Bingr",
+            "url": "https://bingr.online",
+            "image": "img/bingr-mvz5cd2i.jpg",
+            "tags": [
+                "Website Pro"
+            ],
+            "description": "Speel je eigen IPTV-abonnement af op iPhone, iPad, Apple TV, Mac, Android, Windows en in je browser. Bingr levert zelf geen zenders, films of series.",
+            "featured": true
+        },
+        {
             "id": "liftr",
             "name": "Liftr",
             "url": "https://liftr.nu",
@@ -131,6 +153,17 @@
             "featured": true
         },
         {
+            "id": "p2000-apeldoorn",
+            "name": "A-Alerts",
+            "url": "https://a-alerts.nl",
+            "image": "img/p2000-apeldoorn-mw8yu58v.webp",
+            "tags": [
+                "Website Pro"
+            ],
+            "description": "Meldingen van brandweer, ambulance en politie in bijna real time: waar, wat en hoe urgent, in en rond Apeldoorn.",
+            "featured": true
+        },
+        {
             "id": "tunr",
             "name": "Tunr",
             "url": "https://tunr.online",
@@ -139,28 +172,6 @@
                 "Website Pro"
             ],
             "description": "Online radio luisteren, gratis: 50.000+ radiozenders uit 200+ landen en podcasts. Gratis radio-app voor iPhone, iPad, Mac, Apple TV, Apple Watch, CarPlay, Android, Android Auto en Windows.",
-            "featured": true
-        },
-        {
-            "id": "bingr",
-            "name": "Bingr",
-            "url": "https://bingr.online",
-            "image": "img/bingr-mvz5cd2i.jpg",
-            "tags": [
-                "Website Pro"
-            ],
-            "description": "Speel je eigen IPTV-abonnement af op iPhone, iPad, Apple TV, Mac, Android, Windows en in je browser. Bingr levert zelf geen zenders, films of series.",
-            "featured": true
-        },
-        {
-            "id": "lrvdlinden-apps",
-            "name": "LRvdLinden Apps",
-            "url": "https://lrvdlinden.app",
-            "image": "img/lrvdlinden-apps-mw0det6j.webp",
-            "tags": [
-                "Website"
-            ],
-            "description": "iOS- en Homey-apps gemaakt door Léon van der Linden.",
             "featured": true
         },
         {
@@ -184,17 +195,6 @@
             ],
             "description": "Volg Oranje tijdens het WK 2026 met wedstrijden, uitslagen, standen en live updates van het Nederlands elftal.",
             "featured": false
-        },
-        {
-            "id": "p2000-apeldoorn",
-            "name": "A-Alerts",
-            "url": "https://a-alerts.nl",
-            "image": "img/p2000-apeldoorn-mw8yu58v.webp",
-            "tags": [
-                "Website Pro"
-            ],
-            "description": "Meldingen van brandweer, ambulance en politie in bijna real time: waar, wat en hoe urgent, in en rond Apeldoorn.",
-            "featured": true
         },
         {
             "id": "worklio",
@@ -287,6 +287,17 @@
                 "Tool"
             ],
             "description": "Test, bekijk en bewaar je embed-codes veilig op één plek.",
+            "featured": false
+        },
+        {
+            "id": "aerovisuals",
+            "name": "AeroVisuals",
+            "url": "https://aerovisuals.nl",
+            "image": "img/aerovisuals.webp",
+            "tags": [
+                "Website"
+            ],
+            "description": "Een collectief van professionals met een passie voor alle vormen van content.",
             "featured": false
         },
         {

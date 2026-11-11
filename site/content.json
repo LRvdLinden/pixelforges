@@ -290,17 +290,6 @@
             "featured": false
         },
         {
-            "id": "aerovisuals",
-            "name": "AeroVisuals",
-            "url": "https://aerovisuals.nl",
-            "image": "img/aerovisuals.webp",
-            "tags": [
-                "Website"
-            ],
-            "description": "Een collectief van professionals met een passie voor alle vormen van content.",
-            "featured": false
-        },
-        {
             "id": "nieuw-project",
             "name": "Bekendr",
             "url": "https://bekendr.lrvdlinden.app/",

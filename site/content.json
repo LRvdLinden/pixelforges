@@ -98,6 +98,17 @@
     ],
     "projects": [
         {
+            "id": "pairr",
+            "name": "Pairr",
+            "url": "https://pairr.lrvdlinden.app",
+            "image": "img/pairr-mwd9kpc5.webp",
+            "tags": [
+                "Website"
+            ],
+            "description": "Al je HomeKit-, Matter-, Zigbee- en Hue-codes veilig op één plek. Gratis, zonder account.",
+            "featured": true
+        },
+        {
             "id": "lrvdlinden-apps",
             "name": "LRvdLinden Apps",
             "url": "https://lrvdlinden.app",

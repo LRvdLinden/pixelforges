@@ -106,7 +106,7 @@
                 "Website"
             ],
             "description": "Scan je spullen, zie wat ontbreekt en mis nooit meer een houdbaarheidsdatum. Gratis voor iPhone, iPad en Android.",
-            "featured": false
+            "featured": true
         },
         {
             "id": "pairr",
@@ -228,7 +228,7 @@
                 "CRM"
             ],
             "description": "Een platform voor personeelsplanning, urenregistratie en verlofbeheer.",
-            "featured": true
+            "featured": false
         },
         {
             "id": "uavforecast",

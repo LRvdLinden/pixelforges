@@ -788,7 +788,8 @@ function renderProjects(list) {
   $$("#filters .chip").forEach(b => b.onclick = () => { filter = b.dataset.f; showAll = filter !== "Alle"; renderProjects(allProjects); });
   let shown = filter === "Alle" ? [...list].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0)) : list.filter(p => (p.tags || []).includes(filter));
   const total = shown.length;
-  if (!showAll) shown = shown.slice(0, 6);
+  // Startweergave: de uitgelichte projecten (max. 10), anders de eerste 6
+  if (!showAll) { const feat = shown.filter(p => p.featured).slice(0, 10); shown = feat.length ? feat : shown.slice(0, 6); }
   $("#projects").innerHTML = shown.map((p, i) => {
     const img = safeUrl(p.image);
     return `<a class="project" href="${esc(safeUrl(p.url))}" target="_blank" rel="noopener" style="animation-delay:${i * 50}ms">
@@ -797,7 +798,7 @@ function renderProjects(list) {
     </a>`;
   }).join("");
   $$("#projects .shot img").forEach(fitShot);
-  $("#moreWrap").style.display = total > 6 && !showAll ? "" : "none";
+  $("#moreWrap").style.display = total > shown.length && !showAll ? "" : "none";
   $("#moreBtn").textContent = `Toon alle ${total} projecten`;
 }
 $("#moreBtn").onclick = () => { showAll = true; renderProjects(allProjects); };

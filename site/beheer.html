@@ -161,7 +161,7 @@ const SCHEMA = {
     create: () => ({ title: "Nieuwe stap", text: "" }) },
   projects: { label: "Portfolio", path: "projects", title: x => x.name, subtitle: x => (x.tags || []).join(" · "), image: "image", star: "featured",
     fields: [["name","Naam","text"],["url","Website","url"],["tags","Labels","tags",{hint:"Komma's ertussen, bijv. Website Pro, CRM. Labels worden filters op de site."}],["featured","Uitgelicht (eerst getoond)","bool"],["description","Omschrijving","textarea",{full:true}],["image","Afbeelding","image",{full:true,max:1200}]],
-    create: () => ({ id: "", name: "Nieuw project", url: "https://", image: "", tags: ["Website"], description: "", featured: true }) },
+    create: () => ({ id: "", name: "Nieuw project", url: "https://", image: "", tags: ["Website"], description: "", featured: canFeature() }) },
   reviews: { label: "Reviews", path: "reviews", title: x => x.name, subtitle: x => x.company, image: "photo", round: true,
     fields: [["name","Naam","text"],["company","Bedrijf","text"],["url","Website","url",{full:true}],["quote","Review","textarea",{full:true}],["photo","Foto","image",{full:true,max:320,round:true}]],
     create: () => ({ id: "", quote: "", name: "Nieuwe review", company: "", url: "", photo: "" }) },
@@ -226,7 +226,12 @@ function readField(el) {
 function bindFields(root, obj, after) {
   $$("[data-key]", root).forEach(el => {
     const ev = el.dataset.type === "bool" ? "change" : "input";
-    el.addEventListener(ev, () => { obj[el.dataset.key] = readField(el); if (el.dataset.type === "image") $(".prev", el.closest(".img-field")).style.backgroundImage = `url('${src(el.value)}')`; save(); after && after(el.dataset.key); });
+    el.addEventListener(ev, () => {
+      if (el.dataset.key === "featured" && el.checked && tab === "projects" && featuredCount(obj) >= MAX_FEATURED) {
+        el.checked = false;
+        toast(`Er staan al ${MAX_FEATURED} projecten op Uitgelicht. Zet er eerst één uit.`);
+        return;
+      } obj[el.dataset.key] = readField(el); if (el.dataset.type === "image") $(".prev", el.closest(".img-field")).style.backgroundImage = `url('${src(el.value)}')`; save(); after && after(el.dataset.key); });
   });
   $$("[data-upload]", root).forEach(inp => inp.addEventListener("change", async () => {
     const file = inp.files[0]; if (!file) return;
@@ -314,6 +319,10 @@ function render() {
   </div>`;
   $$(".item", v).forEach(b => b.onclick = () => { sel[tab] = +b.dataset.i; render(); });
   if (tab === "projects") bindFetch(v, arr);
+  if (tab === "projects") {
+    const lbl = $('#ed input[data-key="featured"]', v)?.closest("label");
+    if (lbl) lbl.insertAdjacentHTML("beforeend", ` <small style="color:var(--dim)">· ${featuredCount()}/${MAX_FEATURED} in gebruik</small>`);
+  }
   $("#add", v).onclick = () => { const n = s.create(); if (NEEDS_ID.includes(tab)) n.id = uniqueId(arr, n.name); arr.push(n); sel[tab] = arr.length - 1; save(); render(); $("#ed input")?.focus(); };
   if (!cur) return;
   const ed = $("#ed", v);
@@ -322,7 +331,7 @@ function render() {
   });
   const move = d => { const i = sel[tab], j = i + d; [arr[i], arr[j]] = [arr[j], arr[i]]; sel[tab] = j; save(); render(); };
   $("#up", ed).onclick = () => move(-1); $("#down", ed).onclick = () => move(1);
-  $("#dup", ed).onclick = () => { const c = JSON.parse(JSON.stringify(cur)); if (NEEDS_ID.includes(tab)) c.id = uniqueId(arr, (cur.name || cur.id) + "-kopie"); arr.splice(sel[tab] + 1, 0, c); sel[tab]++; save(); render(); };
+  $("#dup", ed).onclick = () => { const c = JSON.parse(JSON.stringify(cur)); if (NEEDS_ID.includes(tab)) c.id = uniqueId(arr, (cur.name || cur.id) + "-kopie"); if (tab === "projects" && c.featured && !canFeature()) c.featured = false; arr.splice(sel[tab] + 1, 0, c); sel[tab]++; save(); render(); };
   const rf = $("#refetch", ed);
   if (rf) rf.onclick = async () => {
     if (!/^https?:\/\/[^/]+\.[a-z]{2,}/i.test(cur.url || "")) { toast("Vul eerst een geldig website-adres in."); return; }
@@ -373,7 +382,7 @@ function bindFetch(v, arr) {
     btn.disabled = true; btn.textContent = "Ophalen…"; msg.textContent = `Bezig met ${host} ophalen…`;
     try {
       const m = await fetchMeta(raw);
-      const item = { id: "", name: m.name || host, url: m.url, image: "", tags: ["Website"], description: m.description || "", featured: true };
+      const item = { id: "", name: m.name || host, url: m.url, image: "", tags: ["Website"], description: m.description || "", featured: canFeature() };
       item.id = uniqueId(arr, item.name);
       const img = await metaImage(m, item);
       if (img) setImage(item, img);
@@ -387,12 +396,17 @@ function bindFetch(v, arr) {
   };
 }
 
+const MAX_FEATURED = 10;
+const featuredCount = (except) => getArr("projects").filter(p => p.featured && p !== except).length;
+const canFeature = () => featuredCount() < MAX_FEATURED;
+
 function uniqueId(arr, name) { const b = slug(name); let id = b, n = 2; while (arr.some(x => x.id === id)) id = `${b}-${n++}`; return id; }
 
 /* ---------- Publiceren ---------- */
 function validate() {
   const errs = [];
   for (const k of NEEDS_ID) { const seen = new Set(); getArr(k).forEach((x, i) => { if (!x.id) x.id = uniqueId(getArr(k), x.name); if (seen.has(x.id)) x.id = uniqueId(getArr(k), x.id); seen.add(x.id); if (!x.name) errs.push(`${SCHEMA[k].label} ${i + 1} heeft geen naam.`); }); }
+  if (getArr("projects").filter(p => p.featured).length > MAX_FEATURED) errs.push(`Er staan meer dan ${MAX_FEATURED} projecten op Uitgelicht. Zet er een paar uit.`);
   if (DATA.settings?.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(DATA.settings.email)) errs.push("Het e-mailadres onder Algemeen klopt niet.");
   return errs;
 }

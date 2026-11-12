@@ -98,6 +98,17 @@
     ],
     "projects": [
         {
+            "id": "noodpakket",
+            "name": "Noodpakket",
+            "url": "https://noodpakket.lrvdlinden.app",
+            "image": "img/noodpakket-mwdimnhl.webp",
+            "tags": [
+                "Website"
+            ],
+            "description": "Scan je spullen, zie wat ontbreekt en mis nooit meer een houdbaarheidsdatum. Gratis voor iPhone, iPad en Android.",
+            "featured": false
+        },
+        {
             "id": "pairr",
             "name": "Pairr",
             "url": "https://pairr.lrvdlinden.app",

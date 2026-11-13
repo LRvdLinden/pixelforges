@@ -25,10 +25,26 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script src="consent.js" defer></script>
 <style>
-:root{--bg:#0a0a0f;--line:rgba(255,255,255,.08);--text:#f5f5f7;--muted:#9ca3af;--dim:#6b7280;--lime:#d0fb65;--mono:"JetBrains Mono",ui-monospace,monospace}
+/* Hallmark · checked: 2026-11-13 · genre: modern-minimal (inferred)
+ * floor: 0 FAIL · fixed: 26a 34 38iii 40 48 F19 · structural: 0 printed
+ * built: the project · redesign: polish · v2.0.0 */
+/* Hallmark · reworded "01 Inleiding" to "1. Inleiding" · 38iii names the lime number set apart in the heading */
+/* Hallmark · reworded "02 Persoonsgegevens die wij verwerken" to "2. Persoonsgegevens die wij verwerken" · 38iii names the lime number set apart in the heading */
+/* Hallmark · reworded "03 Doel van gegevensverwerking" to "3. Doel van gegevensverwerking" · 38iii names the lime number set apart in the heading */
+/* Hallmark · reworded "04 Bewaartermijn" to "4. Bewaartermijn" · 38iii names the lime number set apart in the heading */
+/* Hallmark · reworded "05 Delen met derden" to "5. Delen met derden" · 38iii names the lime number set apart in the heading */
+/* Hallmark · reworded "06 Cookies" to "6. Cookies" · 38iii names the lime number set apart in the heading */
+/* Hallmark · reworded "07 Uw rechten (AVG)" to "7. Uw rechten (AVG)" · 38iii names the lime number set apart in the heading */
+/* Hallmark · reworded "08 Beveiliging" to "8. Beveiliging" · 38iii names the lime number set apart in the heading */
+/* Hallmark · reworded "09 Klachten" to "9. Klachten" · 38iii names the lime number set apart in the heading */
+:root{--bg:#0a0a0f;--line:rgba(255,255,255,.08);--text:#f5f5f7;--muted:#9ca3af;--dim:#828997;--lime:#d0fb65;--mono:"JetBrains Mono",ui-monospace,monospace;--lime-a10:rgba(208,251,101,.1);--white-a06:rgba(255,255,255,.06);}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.7 "Inter",ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 50% -10%,rgba(208,251,101,.1),transparent 50%)}
+html{overflow-x:clip}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:4px}
+h1,h2{text-wrap:balance;overflow-wrap:break-word;min-width:0}
+header.doc-head{display:block;height:auto}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.7 "Inter",ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 50% -10%,var(--lime-a10),transparent 50%)}
 .wrap{max-width:760px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
 header{display:flex;justify-content:space-between;align-items:center;height:76px}
 .logo{font-weight:800;font-size:22px;letter-spacing:-.03em;text-decoration:none;color:var(--text)}
@@ -36,16 +52,17 @@ header{display:flex;justify-content:space-between;align-items:center;height:76px
 .back{color:var(--muted);text-decoration:none;font-size:15px;display:flex;align-items:center;gap:8px;padding:10px 0}
 @media (max-width:420px){h1{margin-top:40px}h2{font-size:20px}body{font-size:16px}}
 .back:hover{color:var(--lime)}
-h1{font-size:clamp(40px,7vw,64px);letter-spacing:-.05em;line-height:1;margin:64px 0 12px}
-.date{font:500 13px var(--mono);color:var(--lime);margin-bottom:56px}
-h2{font-size:22px;letter-spacing:-.02em;margin:48px 0 12px;display:flex;gap:14px;align-items:baseline}
-h2 span{font:500 13px var(--mono);color:var(--lime)}
+h1{font-weight:800;font-size:clamp(40px,7vw,64px);letter-spacing:-.05em;line-height:1;margin:64px 0 12px}
+.date{font:400 13px var(--mono);color:var(--lime);margin-bottom:56px}
+h2{font-size:22px;font-weight:600;letter-spacing:-.02em;margin:48px 0 12px}
 p,li{color:var(--muted)}
 ul{padding-left:20px}
 li::marker{color:var(--lime)}
 a{color:var(--lime)}
+a:hover{text-decoration-thickness:2px}
+a:active{opacity:.8}
 strong{color:var(--text);font-weight:600}
-code{font-family:var(--mono);font-size:.9em;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:5px;color:var(--text)}
+code{font-family:var(--mono);font-size:.9em;background:var(--white-a06);padding:1px 6px;border-radius:5px;color:var(--text)}
 footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);color:var(--dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </style>
 </head>
@@ -53,13 +70,15 @@ footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);colo
 <div class="wrap">
 <header><a href="/" class="logo">Pixel<b>Forges</b></a><a href="/" class="back">← Terug naar home</a></header>
 <main>
+<header class="doc-head">
 <h1>Privacy&shy;verklaring</h1>
 <div class="date">Laatst bijgewerkt: 3 november 2026</div>
+</header>
 
-<h2><span>01</span>Inleiding</h2>
+<h2>1. Inleiding</h2>
 <p>PixelForges, gevestigd in Nederland, is verantwoordelijk voor de verwerking van persoonsgegevens zoals weergegeven in deze privacyverklaring. Wij respecteren de privacy van alle gebruikers van onze website en dragen er zorg voor dat de persoonlijke informatie die u ons verschaft vertrouwelijk wordt behandeld.</p>
 
-<h2><span>02</span>Persoonsgegevens die wij verwerken</h2>
+<h2>2. Persoonsgegevens die wij verwerken</h2>
 <p>PixelForges verwerkt persoonsgegevens doordat u gebruik maakt van onze diensten en/of omdat u deze gegevens zelf aan ons verstrekt, bijvoorbeeld via het contactformulier. Hieronder een overzicht van de persoonsgegevens die wij verwerken:</p>
 <ul>
 <li>Voor- en achternaam</li>
@@ -71,7 +90,7 @@ footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);colo
 <li>Gegevens over uw activiteiten op onze website</li>
 </ul>
 
-<h2><span>03</span>Doel van gegevensverwerking</h2>
+<h2>3. Doel van gegevensverwerking</h2>
 <p>PixelForges verwerkt uw persoonsgegevens voor de volgende doelen:</p>
 <ul>
 <li>Het afhandelen van uw betaling</li>
@@ -81,13 +100,13 @@ footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);colo
 <li>Het uitvoeren van de overeenkomst voor websitebouw en onderhoud</li>
 </ul>
 
-<h2><span>04</span>Bewaartermijn</h2>
+<h2>4. Bewaartermijn</h2>
 <p>PixelForges bewaart uw persoonsgegevens niet langer dan strikt nodig is om de doelen te realiseren waarvoor uw gegevens worden verzameld. Wij hanteren een bewaartermijn van 7 jaar voor administratieve gegevens (wettelijke verplichting) en maximaal 2 jaar voor overige persoonsgegevens na beëindiging van de dienstverlening.</p>
 
-<h2><span>05</span>Delen met derden</h2>
+<h2>5. Delen met derden</h2>
 <p>PixelForges verkoopt uw gegevens niet aan derden en zal deze uitsluitend verstrekken indien dit nodig is voor de uitvoering van onze overeenkomst met u of om te voldoen aan een wettelijke verplichting. Met bedrijven die uw gegevens verwerken in onze opdracht, sluiten wij een verwerkersovereenkomst om te zorgen voor eenzelfde niveau van beveiliging en vertrouwelijkheid van uw gegevens.</p>
 
-<h2 id="cookies"><span>06</span>Cookies</h2>
+<h2 id="cookies">6. Cookies</h2>
 <p>Een cookie is een klein tekstbestand dat in de browser van uw computer, tablet of smartphone wordt opgeslagen. PixelForges gebruikt geen advertentie- of trackingcookies.</p>
 <ul>
 <li><strong>Noodzakelijk (altijd aan):</strong> de cookie <code>pf_consent</code> en dezelfde waarde in de lokale opslag van uw browser onthouden uw cookiekeuze. Bewaartermijn: 12 maanden.</li>
@@ -95,7 +114,7 @@ footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);colo
 </ul>
 <p>U kunt uw keuze altijd wijzigen via het ronde cookieknopje linksonder op de website of hier: <a href="#cookies" data-consent-open>cookie-instellingen openen</a>.</p>
 
-<h2><span>07</span>Uw rechten (AVG)</h2>
+<h2>7. Uw rechten (AVG)</h2>
 <p>Op grond van de Algemene Verordening Gegevensbescherming (AVG) heeft u de volgende rechten:</p>
 <ul>
 <li><strong>Recht op inzage:</strong> u heeft het recht om uw persoonsgegevens in te zien</li>
@@ -107,10 +126,10 @@ footer{margin:80px 0 40px;padding-top:24px;border-top:1px solid var(--line);colo
 </ul>
 <p>U kunt een verzoek tot inzage, correctie, verwijdering of gegevensoverdracht sturen naar <a href="mailto:hallo@pixelforges.nl">hallo@pixelforges.nl</a>. Om er zeker van te zijn dat het verzoek door u is gedaan, vragen wij u een kopie van uw identiteitsbewijs met het verzoek mee te sturen. We reageren zo snel mogelijk, maar binnen vier weken, op uw verzoek.</p>
 
-<h2><span>08</span>Beveiliging</h2>
+<h2>8. Beveiliging</h2>
 <p>PixelForges neemt de bescherming van uw gegevens serieus en neemt passende maatregelen om misbruik, verlies, onbevoegde toegang, ongewenste openbaarmaking en ongeoorloofde wijziging tegen te gaan. Onze website maakt gebruik van een betrouwbaar SSL-certificaat om te borgen dat uw persoonsgegevens niet in verkeerde handen vallen.</p>
 
-<h2><span>09</span>Klachten</h2>
+<h2>9. Klachten</h2>
 <p>Mocht u een klacht hebben over de verwerking van uw persoonsgegevens, dan vragen wij u hierover direct contact met ons op te nemen. U heeft altijd het recht een klacht in te dienen bij de Autoriteit Persoonsgegevens, de toezichthoudende autoriteit op het gebied van privacybescherming.</p>
 </main>
 <footer><span>© <span id="y">2026</span> PixelForges</span><span style="display:flex;gap:18px"><a href="#cookies" data-consent-open>Cookie-instellingen</a><a href="/">pixelforges.nl</a></span></footer>

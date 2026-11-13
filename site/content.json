@@ -31,7 +31,7 @@
             "price": "€750",
             "suffix": "",
             "note": "excl. btw",
-            "description": "Perfect voor ZZP'ers en kleine ondernemers die online zichtbaar willen zijn.",
+            "description": "Perfect voor ZZP’ers en kleine ondernemers die online zichtbaar willen zijn.",
             "features": [
                 "Onepage site",
                 "Responsive design",
@@ -48,10 +48,10 @@
             "price": "€1.450",
             "suffix": "",
             "note": "excl. btw",
-            "description": "Voor bedrijven die meer willen: profielen, portfolio's of uitgebreide functionaliteit.",
+            "description": "Voor bedrijven die meer willen: profielen, portfolio’s of uitgebreide functionaliteit.",
             "features": [
                 "Alles van Basis",
-                "Onbeperkt pagina's",
+                "Onbeperkt pagina’s",
                 "Gebruikersprofielen",
                 "Portfolio systeem",
                 "Uitgebreide beheersomgeving"
@@ -296,7 +296,7 @@
                 "Website Pro",
                 "Tool"
             ],
-            "description": "Gratis online bestandsconverter voor PDF, afbeeldingen, video's en meer.",
+            "description": "Gratis online bestandsconverter voor PDF, afbeeldingen, video’s en meer.",
             "featured": false
         },
         {
@@ -380,7 +380,7 @@
         },
         {
             "q": "Kan ik zelf dingen aanpassen?",
-            "a": "Ja. Elke website krijgt een beheersomgeving. Bij Basis voor kleine aanpassingen, bij Pro een uitgebreide omgeving waarmee je zelf pagina's, portfolio en profielen bijhoudt."
+            "a": "Ja. Elke website krijgt een beheersomgeving. Bij Basis voor kleine aanpassingen, bij Pro een uitgebreide omgeving waarmee je zelf pagina’s, portfolio en profielen bijhoudt."
         },
         {
             "q": "Waarom is Service & Beheer verplicht?",
@@ -388,7 +388,7 @@
         },
         {
             "q": "Voor wie is PixelForges bedoeld?",
-            "a": "Voor ZZP'ers en het MKB die een professionele website willen zonder bureauprijzen en lange trajecten."
+            "a": "Voor ZZP’ers en het MKB die een professionele website willen zonder bureauprijzen en lange trajecten."
         }
     ]
 }

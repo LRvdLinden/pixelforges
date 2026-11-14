@@ -98,6 +98,17 @@
     ],
     "projects": [
         {
+            "id": "112heli",
+            "name": "112Heli",
+            "url": "https://112heli.lrvdlinden.app",
+            "image": "img/112heli-mwgaspqo.webp",
+            "tags": [
+                "Website"
+            ],
+            "description": "Zie live waar de Lifeliner, de politiehelikopter (Zulu), de Kustwacht en Defensie vliegen. Gratis app met melding bij opstijgen en landingsplek.",
+            "featured": true
+        },
+        {
             "id": "noodpakket",
             "name": "Noodpakket",
             "url": "https://noodpakket.lrvdlinden.app",

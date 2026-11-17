@@ -106,7 +106,7 @@
                 "Website"
             ],
             "description": "PH-UTL live op de kaart, met elke vlucht terug te kijken en de Formule 1-kalender erbij.",
-            "featured": false
+            "featured": true
         },
         {
             "id": "112heli",
@@ -139,7 +139,7 @@
                 "Website"
             ],
             "description": "Al je HomeKit-, Matter-, Zigbee- en Hue-codes veilig op één plek. Gratis, zonder account.",
-            "featured": true
+            "featured": false
         },
         {
             "id": "lrvdlinden-apps",

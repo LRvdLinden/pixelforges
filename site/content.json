@@ -98,6 +98,17 @@
     ],
     "projects": [
         {
+            "id": "mv3",
+            "name": "MV3",
+            "url": "https://mv3jet.nl",
+            "image": "img/mv3-mwkvjjzx.webp",
+            "tags": [
+                "Website"
+            ],
+            "description": "PH-UTL live op de kaart, met elke vlucht terug te kijken en de Formule 1-kalender erbij.",
+            "featured": false
+        },
+        {
             "id": "112heli",
             "name": "112Heli",
             "url": "https://112heli.lrvdlinden.app",
